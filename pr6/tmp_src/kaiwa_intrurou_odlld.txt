@@ -1,0 +1,102 @@
+
+    def kaiwa_interrupt_old o
+
+      alpha = 255
+      phase = 0
+      text = ["","","","","test"]
+      yuyukosama_A = Image.load("img/yuyuko_A.png")
+      yuyukosama_B = Image.load("img/yuyuko_B.png")
+      reimu_A      = Image.load("img/reimu_A.png")
+      data = [
+       ["yuyuko" , yuyukosama_A , "ÇƒÇ∑Ç∆Å`" ] ,
+       ["reimu"  , reimu_A      , "ÇƒÇ∑" ] ,
+       ["yuyuko" , yuyukosama_B , "Ç∑Ç¡Ç∑" ] ,      
+      ]
+      
+      o.miko({ sym: :kaiwa}) do | o |
+        o.Init do
+        end
+        Window.drawFont 100, 100, "intterupt" , Yuyuko.font2 , {alpha: alpha }
+        if Input.vkeyPush? :vk0
+          data.shift
+        end
+        hhs  = {alpha: 220 }
+        if data.not_empty?
+          case data.first.first
+          when "yuyuko"
+             hhs[:color] = [140,140,220] 
+             Window.drawEx( 300 , 100 , yuyukosama_A , ({alpha: 220 , }) )
+             Window.drawEx( 0   , 100 , reimu_A , ({alpha: 150 , }) )
+          when "reimu"
+             hhs[:color] = [200,170,130] 
+             Window.drawEx( 300 , 100 , yuyukosama_A , ({alpha: 150 , }) )
+             Window.drawEx( 0   , 100 , reimu_A , ({alpha: 220 , }) )
+          end
+          m = data.first.last
+          Window.drawFont 100, 350 , m , Yuyuko.font2 , hhs
+#          Window.drawEx( o.x , o.y , o.d , ({alpha: 200 , }) 
+        else
+#          phase = 2
+        end
+
+        next
+        text[-4..-1].each_with_index do | m , i |
+          Window.drawFont 100, 300+ i*30 , m , Yuyuko.font , {alpha: alpha }
+        end
+        case phase
+        when 0
+          if Input.keyPush? K_Z
+            phase = 1
+            text << "aaaa"
+          end
+        when 1
+          phase = 2
+          #
+          #
+          alpha -= 1
+          if alpha == 10
+            phase = 2
+          end
+        when 2
+text << "bbbbb"
+text << "ccccc"
+text << "dddd"
+          
+          phase = 3  
+          o.miko do |o|
+            o.Init do
+              o.x = 600
+              o.y = 100
+              o.d = Image.load("img/yuyuko_B.png")
+
+            end
+            if o.x > 300
+              o.x -= 2
+            end
+            Window.drawEx( o.x , o.y , o.d , ({alpha: 200 , }) )
+          end
+        when 3
+          if Input.keyPush?(K_Z)
+            phase = 4
+          end
+        when 4
+          phase = 5
+          o.miko({ x: -100 , y: 100 , }) do |o|
+            o.Init do
+              o.x = -100
+              o.y = 100
+              o.d = Image.load("img/reimu_A.png")
+            end
+            if o.x < -20
+              o.x += 2
+            end
+            Window.drawEx( o.x , o.y , o.d , ({alpha: 200 , }) )
+          end
+          
+        when 20
+          phase_create_1 o.up
+          o.delete
+        end
+      end # o
+      
+    end # d

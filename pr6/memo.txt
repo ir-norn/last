@@ -1,0 +1,286 @@
+---------------------------
+イメージ　サウンド　ロード関数の命名規則
+
+    # [[]]
+    def Image_load pas  , remi = "{png,bmp,jpg,jpeg,gif}"
+      load( pas , Image , remi  )
+    end
+    # []
+    def Image_load_miko pas , patan = "{png,bmp,jpg,jpeg,gif}"
+      __ImageSound_load_miko  pas , Image  , patan
+    end
+    # Image
+    def Image_load_alice  pas  ,  remi = Image
+      a = load( pas , remi , "{" + "#{File.extname(pas)}" + "}" )
+      if a.empty? || a.class == Array
+        p "#{__method__} pas is not file #{pas} #{remi}"
+        p caller
+      end
+      return  a
+    end
+
+
+
+load 　2次元配列
+
+miko　1次元配列
+
+alice　1個の画像
+
+--------------------------
+
+
+基本的なタスクの生成
+
+
+      o.Task :sym ,{x:4} do | o |
+        o.Code do
+           p o.x
+        end # code
+      end if Input.keyPush?(K_Z)
+
+
+--------------------
+
+
+----
+
+最小コード
+
+Yuyukosama.new.Main Yuyuko.top_sym do | o |
+  o.Code do
+    Window.drawFont2 100, 100 , "test"
+  end
+end
+
+-------------------
+
+
+
+---------------
+ツリーダイヤグラムの中で並列ロジック
+
+
+    Window.loop2 do
+       Window.drawFont 100,100,"sfs" ,Yuyuko.font
+    end
+
+-----------------------
+基本的なタスクの作り方
+miko は完全な透明な1ピクセルの画像がデフォルト
+miko_ex はサンプル画像を　:d に格納する
+
+
+
+    if Input.keyPush?(K_Z)
+      o.miko_ex({
+        alpha:  ({ type: :default, start: 50 , limit: 255 , add: 1  }) ,
+        rot:    ({ type: :default, start: 0  , limit: 900 , add: 1  }) ,
+      }) do |o|
+      
+      end
+    end # if
+
+
+
+
+----------------
+
+　ループの作り方
+
+    if Input.keyPush?(K_X)
+      
+      o.Loop :title do  |o|
+      p 3 # init
+         o.Code do
+            p :lp
+         end
+
+      end
+    
+    end
+
+
+
+-----------------
+目的の上位シーンを削除する
+
+         if Input.keyPush?(K_X)
+           o.search_up( :title ).delete
+         end
+
+
+-------------
+Key 関係
+
+        
+   	  vk = Vk_Input.new "profile1"
+
+         if Input.keyDownWait? K_Z , 10
+         	  p 3
+         end
+         
+			  if vk.vkeyPush? :vk0
+		  	 p 23
+			  end
+
+
+
+メモ-----------------
+
+
+
+
+
+
+
+
+
+--------------
+
+
+
+
+
+     :::::: :: : :_,,.. -──- ､.,_ : : :: ::: ::::: :::::::: :: : : / 　 　 へ
+    　,. '"´　　　　　　　　 　｀ヽ. ::::::　,.ﾍ :::: :: : i　そ 　 ｌ
+    ´ 　　　　　　　 　 　 　 　 　 ':,／:::i_|_ ::: :: :|　 l
+    　,. 　　　　 　　　　　　　　　 　Y'":::77 ::::　|　な
+    /　　,. '"　　　　　　　　　 ｀ヽr'__:::::::l | :　　|　の
+    　　/　, 　 /　　 i　　i　 ',　__ ﾄt､___;l_」 :　　!　か
+    　 ,'　 .i　,'_,,.. -' ﾊ　,ﾊ_/i´　ﾊ-i ', ::::: :::: :: : ',.　ｌ
+    　 i　　!/_」ﾆ_､/::::!/´,r‐r!‐ｧ'i./　| :::::: :::: ::: :ヽ､.__,. -‐-､
+    　 !　,ｱ´'└ﾘ `::::::'::::' !_,りﾉ7ﾍ　 ! :::::::: ::::: :: :　 / 　だ　 ',
+    . /ﾚ' `,ゝ-‐'　　　　　　　⊂! | V ::::: :: :　 _,,..-‐i　　か　　i
+    　 |　⊂⊃　　　　　　　　　,ﾊ|_,,!ゝ-‐ ''"´　　　|　　ら　　.ﾄ､
+    　 .i　 ﾄ.　　　 　ｰ-‐' 　 ,.ｲ　i　 　 　 　 　 　 　|. 　何　　|/
+    ﾉ ,ﾊ.　| ｀＞. ､.,,___ ,,..イ　!　/　　　　　　　　　　', 　？　　!'
+    ＜::!'ヽ|｀ヽ､.　　　 i｀ヽ!　ﾊ/　　　　　　　　　　　ヽ､.,__ ,ノつ
+    　 ヽ;::::＼ ｀＞-‐イ　/|/:',　　　　　　　　　　　 　　 /」'"´
+    　　　';:::::::｀'ヽ,.-､'^ヾ::::::::::',-‐　__,,.. -─----─ ''" ::::::::::
+    　　　 i::::::::::::::ﾄ-'^rr'i::::::::::::Y￣　: : :: ::: :::::: :::::::::::::::::::::::::::
+
+
+
+
+
+166 名前：以下、名無しにかわりましてVIPがお送りします[] 投稿日：2008/09/15(月) 13:59:41.14 ID:A9a/gWSj0
+　　　ッ「ペロバコナーンｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗ」
+
+
+
+バコナロ「ンーwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww 」 
+
+
+
+
+---------------
+
+
+はやいとこ会話インタラプト作って
+
+
+Field2へ･･･
+
+弾幕とか、ショットとか、
+画像と音つけて
+1個1個、丁寧に作る
+
+道中は適当でもいいけど、
+メイン弾幕は、数は少なくても　クオリティ重視を
+
+
+
+
+
+
+    def miko
+      # 要検討
+      # どうやって上位シーンのノード情報をとってくるか
+      # Yuyuko _ Loop do ～ end に入れると、次にLoopはいって戻ってきた時に
+      # Loop_NODE を戻されないから、
+      # やっぱり相対的な参照が好ましい気がする
+      # 今回はこのままgo
+      #
+      
+      Yuyuko.LOOP_NODE
+    end
+
+
+
+---------------------
+
+
+現在スタッフロールのところちょっと生成
+
+
+Field１　Mob適当
+
+Field２　まだから
+
+Game_over　未実装
+
+スペカ未実装
+
+スペカadd Item 実装
+
+得点 実装
+
+得点add　Item　未実装
+
+ざんき　実装
+
+
+メニュー　実装
+
+イラストシーン　未実装
+
+Exitシーン　実装
+
+エンディング　未実装
+
+スタッフロールから、　タイトルへ戻る　動作確認、実装
+
+
+
+
+# ------------------------------- BUG ---------------------------------
+#
+# uniq_sym
+# 
+# 現在の階層からかぶらないシンボルを返すのではなく
+# 全階層から絶対にかぶらないシンボルを返す形に変える
+# そうないとsearch_down_allとかで重複シンボルが上書きされる
+# ただそれは速度に難ありなので、連番とかランダムな英数字で生成
+#
+# ---------------------------------------------------------------------
+
+  def uniq_sym str = "_rb_uniq_" , n = rand(1000)
+    tmp = "#{str}_#{n}".to_sym
+    if self.task.include? tmp
+      return uniq_sym str , n + 1
+    else
+      return tmp
+    end
+  end # def
+
+
+
+
+------------------------
+
+
+Dir.tmpdir
+
+使おう
+スクリーンショット
+
+
+
+Input.setRepeat( wait, interval )
+
+Input.setKeyRepeat( key, wait, interval )
+
+
+キャラの名前に　天気　ってどうだろう
+
