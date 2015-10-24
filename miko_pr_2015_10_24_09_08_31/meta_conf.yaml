@@ -1,0 +1,19 @@
+
+
+
+top:
+  title:
+    menu:
+      field:
+        stage0:
+        stage1:
+        stage2:
+        stage_end:
+          ending:
+            staff_roll:
+              return_display:
+      option:
+        sound:
+        keyconfig:
+        scoa:
+      exit:

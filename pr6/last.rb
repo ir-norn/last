@@ -1,150 +1,294 @@
 # -*- encoding: UTF-8 -*-
 # ruby 1.9.3p448 (2013-06-27) [i386-mingw32]
-# 
-#
 #
 require "dxruby"
 require "dxrubyex"
-require "ostruct"
 require "yaml"
 #require "Kconv"
 #require "pp"
 #
 # gem liblary
-require 'enumerable/lazy'
+#require 'enumerable/lazy'
 #require 'win32/clipboard'
 #require "ap"
-#
 # ------------- DEBUG -----------------------
-$__DEBUG_MODE__ =  File.file?("./__DEBUG_MODE__")
+# $__DEBUG_MODE__ =  File.file?("./__DEBUG_MODE__")
+# dir set
 Dir.chdir File.dirname(File.expand_path("../pr6",__FILE__))+"/"
 #Dir.chdir File.dirname(File.expand_path(__FILE__))+"/"
 #Dir.chdir File.dirname($0) + "/"
-p Dir.pwd
-# ---------------- entory ------------------
+# p Dir.pwd
 dir = "./"
+# ---------------- entory ------------------
 #
 # ------------- expansion -------------------------
 require dir + "ex/ruby_ex"
-require dir + "ex/ruby_ex_x"
-require dir + "ex/ruby_ex_kotohime"
+#require dir + "ex/ruby_ex_x"
+#require dir + "ex/ruby_ex_kotohime"
 require dir + "ex/dxruby_ex"
 # ------------- const --------------
 require dir + "const"
 # ------------- expansion -------------------------
-require dir + "ex/key"
-require dir + "ex/Scarlet"
-# ------------------ header ---------------
-require dir + "ex/compile"
-require dir + "yk/Lumia"
-require dir + "yk/Yukarin"
-#require dir + "yk/Yakumo_ran"
-#require dir + "yk/Yakumo_chen"
-require dir + "yk/__Yakumo_yukari___"
+# require dir + "ex/key"
+# require dir + "ex/Scarlet"
+# # ------------------ header ---------------
+# #require dir + "ex/compile"
+# require dir + "yk/Lumia"
+# require dir + "yk/Yukarin"
+# #require dir + "yk/Yakumo_ran"
+# #require dir + "yk/Yakumo_chen"
+# require dir + "yk/__Yakumo_yukari___"
+require dir + "yk/tree_task_search"
+#require dir + "yk/tree_task"
 require dir + "yk/Yuyuko"
-require dir + "yk/Mikomiko"
-
+#require dir + "yk/Mikomiko"
 # ------------ project src ------------
 # Pattern Hedder
-require dir + "in/Patchouli_Knowledge"
-#
-require dir + "in/field"
-require dir + "in/Title"
-require dir + "in/Menu"
-require dir + "in/Exit"
-require dir + "in/Irast"
-require dir + "in/Field"
-require dir + "in/Field_1"
-require dir + "in/Field_2"
-require dir + "in/Field_nil"
-require dir + "in/Ending"
-require dir + "in/Staff_roll"
-require dir + "in/Game_over"
-# game_stop scene�����ե������Ǻ��äƤ⤤������
-#
-# Pattern
-require dir + "in/User_p"
-require dir + "in/Enemy_p"
-require dir + "in/Enemy_p_boss0"
-require dir + "in/Effect_p"
-require dir + "in/Item_p"
-#
-#
-# template
-require dir + "in/Menu_pattern_0"
-require dir + "in/Menu_pattern_1"
-require dir + "in/Menu_pattern_2"
-require dir + "in/Menu_pattern_3"
-require dir + "in/Menu_pattern_4"
-require dir + "in/Menu_pattern_5"
-# next project
-require dir + "next/window_system"
-
+# require dir + "in/Patchouli_Knowledge"
+# #
+# require dir + "in/field"
+# require dir + "in/Title"
+# require dir + "in/Menu"
+# require dir + "in/Exit"
+# require dir + "in/Irast"
+# require dir + "in/Field"
+# require dir + "in/Field_1"
+# require dir + "in/Field_2"
+# require dir + "in/Field_nil"
+# require dir + "in/Ending"
+# require dir + "in/Staff_roll"
+# require dir + "in/Game_over"
+# # Pattern
+# require dir + "in/User_p"
+# require dir + "in/Enemy_p"
+# require dir + "in/Enemy_p_boss0"
+# require dir + "in/Effect_p"
+# require dir + "in/Item_p"
+# # template
+# require dir + "in/Menu_pattern_0"
+# require dir + "in/Menu_pattern_1"
+# require dir + "in/Menu_pattern_2"
+# require dir + "in/Menu_pattern_3"
+# require dir + "in/Menu_pattern_4"
+# require dir + "in/Menu_pattern_5"
+# # next project
+# require dir + "next/window_system"
 # ----------- debug ------------
 
-[
-  /Field_nil/           , ->o{ Tewi::Field.new o } ,
-  /Patchouli_Knowledge/ , ->o{ Tewi::Field.new o } ,
-  /window_system/       , ->o{ Tewi::Window_system.new o } ,
-  /Menu_pattern_0/      , ->o{ Tewi::Menu_pattern_0.new o } ,
-  /Menu_pattern_1/      , ->o{ Tewi::Menu_pattern_1.new o } ,
-  /Menu_pattern_2/      , ->o{ Tewi::Menu_pattern_2.new o } ,
-  /Menu_pattern_3/      , ->o{ Tewi::Menu_pattern_3.new o } ,
-  /Menu_pattern_4/      , ->o{ Tewi::Menu_pattern_4.new o } ,
-  /Menu_pattern_5/      , ->o{ Tewi::Menu_pattern_5.new o } ,
-].each_slice(2) do | r , new |
-  next if not $0 =~ r
-  $Create_mode = true
-  Yuyukosama.new.Main do | o |
-     o.Loop :field do |o|
-       new.call o
-       o.Code do
-       end
-     end
-     o.Code do end
-  end
+# [
+#   /Field_nil/           , ->o{ Tewi::Field.new o } ,
+#   /Patchouli_Knowledge/ , ->o{ Tewi::Field.new o } ,
+#   /window_system/       , ->o{ Tewi::Window_system.new o } ,
+#   /Menu_pattern_0/      , ->o{ Tewi::Menu_pattern_0.new o } ,
+#   /Menu_pattern_1/      , ->o{ Tewi::Menu_pattern_1.new o } ,
+#   /Menu_pattern_2/      , ->o{ Tewi::Menu_pattern_2.new o } ,
+#   /Menu_pattern_3/      , ->o{ Tewi::Menu_pattern_3.new o } ,
+#   /Menu_pattern_4/      , ->o{ Tewi::Menu_pattern_4.new o } ,
+#   /Menu_pattern_5/      , ->o{ Tewi::Menu_pattern_5.new o } ,
+# ].each_slice(2) do | r , new |
+#   next if not $0 =~ r
+#   $Create_mode = true
+#   Yuyukosama.new.Main do | o |
+#      o.Loop :field do |o|
+#        new.call o
+#        o.Code do
+#        end
+#      end
+#      o.Code do end
+#   end
+# end
+
+# require dir + "scene/title"
+# require dir + "scene/menu"
+# require dir + "scene/exit"
+# require dir + "scene/field"
+# require dir + "scene/option"
+Dir[dir+"AnneRose/*.rb"].each do |m|
+  require m
 end
+
+#require dir + "scene/"
+#require dir + "scene/"
+
+# lib
+module Create_Generator
+	class << self
+		def extended o
+      o.var_add :Message_Q , :sounds , :bgms , :fonts , :imgs
+      o.Message_Q = []
+
+			o.var_add :uniq_sym , :static_logic
+			o.uniq_sym     = c_uniq_sym
+			o.static_logic = c_static_logic
+		end
+		def c_uniq_sym
+		  _=0;->{ return "#{__method__}_#{_+=1}".to_sym }
+		end
+  	def c_static_logic
+  	  _={};->{ _[caller.to_s] ? false : _[caller.to_s] = true }
+  	end
+	end
+end
+
+# meta#
+# --------------------------------------------------------------------
+# --------------------------------------------------------------------
+# --------------------------------------------------------------------
+
+# $Scarlet.TOP_SYM
+Tree_Diagram.new.Main :AnneRose_main do | o |
+#  $Scarlet.TOP_NODE = o
+#  Yuyuko.TOP_NODE = o
+  o.Code do
+    if o.task.empty?
+      o.Flandoll << :title
+    end
+    case o.Flandoll.pop
+  when :title
+    o.Loop :title do |o|
+       AnneRose::Title.new o
+       o.Code do
+         case o.Flandoll.pop
+  when :menu , :MSG_CODE1
+    o.Loop :menu do |o|
+       AnneRose::Menu.new o
+       o.Code do
+         case o.Flandoll.pop
+         when :return
+           o.up.delete
+         when :field
+           o.Loop :field do |o|
+             AnneRose::Field.new o
+             o.Code do
+               case o.Flandoll.pop
+               when :ending
+          o.Loop :ending do |o|
+             AnneRose::Ending.new o
+             o.Code do end
+          end
+end
+end
+end         when :option
+          o.Loop :option do |o|
+             AnneRose::Option.new o
+             o.Code do end
+          end
+        when :exit
+          o.Loop :exit do |o|
+             AnneRose::Exit.new o
+             o.Code do end
+          end
+end
+end
+end
+end
+end
+end
+end
+end
+end
+
+
+# --------------------------------------------------------------------
+# --------------------------------------------------------------------
+# --------------------------------------------------------------------
+# --------------------------------------------------------------------
+exit
 
 
 # ----------- project const -------------------
 #
 # require "__tewi/stg0req"  if $0 ==__FILE__
-
-
-Tree_Diagram.new.Main do | o |
-#   Yuyuko.TOP_NODE = o # def main �ˤ�����
-#   $Scarlet.sound[:title].play
-
+Tree_Diagram.new.Main  $Scarlet.TOP_SYM = Yuyuko.top_sym do | o |
+  $Scarlet.TOP_NODE = o
+   Yuyuko.TOP_NODE = o
    o.Code do
     if o.task.empty?
-#    $Scarlet.frandoll << :test
-     $Scarlet.frandoll << :title
-#     $Scarlet.frandoll << :bug
+     o.Flandoll << :title
+#     $Scarlet.flandoll << :bug
     end
-    case $Scarlet.frandoll.pop
-      when :title
-        o.Loop :title do | o |
-          Tewi::Title.new o
-          $Scarlet.frandoll << :ok
+    case o.Flandoll.pop
+    when :title
+        o.Task_Loop :title_loop do | o |
+          AnneRose::Title.new o
           o.Code do
-            if :ok == $Scarlet.frandoll.pop
+            case o.Flandoll.pop
+            when :menu
               o.Loop :menu do |o|
-                Tewi::Menu.new o
-#                $Scarlet.frandoll << :start
+                 AnneRose::Menu.new o
                 o.Code do
-                  case $Scarlet.frandoll.pop
-                  when :start
+                  case o.Flandoll.pop
+                  when :field
                     o.Loop :field do |o|
-                      Tewi::Field.new o
-#                       $Scarlet.frandoll << :ending  #
+                      AnneRose::Field.new o
+
                       o.Code do
-                        case $Scarlet.frandoll.pop
+                        case $Scarlet.flandoll.pop
                         when :ending
                           o.Loop :ending do |o|
                             Tewi::Ending.new o
-#                            $Scarlet.frandoll << :staff_roll  #
+                            o.Code do end
+                          end # loop
+                        end #case
+                      end #code
+                    end # loop
+                  when :option
+                    o.Loop :option do |o|
+                      AnneRose::Option.new o
+                      o.Code do end
+                    end
+                  when :exit
+                    o.Loop :exit do |o|
+                      AnneRose::Exit.new o
+                      o.Code do end
+                    end #
+                  end # case
+                end # code
+              end # loop
+           end # title_case
+         end # menu code
+      end # taskloop
+    end #case
+  end #
+end #
+#if nil
+#exit
+
+
+Tree_Diagram.new.Main Yuyuko.top_sym do | o |
+       Yuyuko.TOP_NODE = o
+#   Yuyuko.TOP_NODE = o # def main �ˤ�����
+
+   o.Code do
+    if o.task.empty?
+#    $Scarlet.flandoll << :test
+     $Scarlet.flandoll << :title
+#     $Scarlet.flandoll << :bug
+    end
+    case $Scarlet.flandoll.pop
+      when :title
+        o.Loop :title do | o |
+          Tewi::Title.new o
+          $Scarlet.flandoll << :ok
+          o.Code do
+            if :ok == $Scarlet.flandoll.pop
+              o.Loop :menu do |o|
+                Tewi::Menu.new o
+                $Scarlet.flandoll << :start
+                o.Code do
+                  case $Scarlet.flandoll.pop
+                  when :start
+                    o.Loop :field do |o|
+                      Tewi::Field.new o
+#                       $Scarlet.flandoll << :ending  #
+                      o.Code do
+                        case $Scarlet.flandoll.pop
+                        when :ending
+                          o.Loop :ending do |o|
+                            Tewi::Ending.new o
+#                            $Scarlet.flandoll << :staff_roll  #
                             o.Code do
-                              case $Scarlet.frandoll.pop
+                              case $Scarlet.flandoll.pop
                               when :staff_roll
                                 o.Loop :staff_roll do |o|
                                   Tewi::Staff_roll.new o
@@ -242,7 +386,7 @@ end # tr
 
 
 # ------------------------ main ------------------------------
-Yuyukosama.new.YuyuMain Yuyuko.top_sym do | o |
+Yuyukosama.new.Main Yuyuko.top_sym do | o |
   a = Lumia.Image_load_miko "./img/shot/0"
   p a
   cc = Yukarin.count_loop_create 0 , 20*a.size , 1
@@ -261,72 +405,3 @@ Yuyukosama.new.YuyuMain Yuyuko.top_sym do | o |
 #    end
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-=begin
-
-case $0
-when /Field_nil/ , /Patchouli_Knowledge/
-  $Create_mode = true
-
-  Yuyukosama.new.Main do | o |
-     o.Loop :field do |o|
-       Tewi::Field.new o
-       o.Code do
-       end
-     end
-     o.Code do end
-  end
-when /window_system/
-  Yuyukosama.new.Main do | o |
-     o.Loop :field do |o|
-       Tewi::Window_system.new o
-       o.Code do
-       end
-     end
-     o.Code do end
-  end
-
-when /Menu_pattern_0/
-  Yuyukosama.new.Main do | o |
-     o.Loop :field do |o|
-       Tewi::Menu_pattern_0.new o
-       o.Code do
-       end
-     end
-     o.Code do end
-  end
-
-when /Menu_pattern_1/
-  Yuyukosama.new.Main do | o |
-     o.Loop :field do |o|
-       Tewi::Menu_pattern_1.new o
-       o.Code do
-       end
-     end
-     o.Code do end
-  end
-
-when /Menu_pattern_2/
-  Yuyukosama.new.Main do | o |
-     o.Loop :field do |o|
-       Tewi::Menu_pattern_2.new o
-       o.Code do
-       end
-     end
-     o.Code do end
-  end
-
-end
-
-
-=end

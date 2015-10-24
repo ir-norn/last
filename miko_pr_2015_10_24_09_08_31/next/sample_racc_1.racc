@@ -1,0 +1,66 @@
+
+class Calc
+  token NUM
+prechigh
+  nonassoc UMINUS
+  left  '*' '/'
+  left  '+' '-'
+  left  'v' 'z'
+#  token THEN
+preclow
+
+rule
+   expr : expr '+' expr { result = val[0] + val[2] }
+        | expr '-' expr { result = val[0] - val[2] }
+        | expr '*' expr { result = val[0] * val[2] }
+        | expr '/' expr { result = val[0] / val[2] }
+        | expr 'v' expr { result = val[0] ** val[2] }
+#        | expr 'z' expr { result = -val[2] ; p val  }
+        | prim          { result = val[0] }
+
+#  target: exp
+#        | /* none */ { result = 0 } 
+#   exp:
+#        | expr 'z' exp { result = -val[1] ; p val  }
+#        | 'z' NUM  =UMINUS { result = -val[1] }
+#        | NUM    
+
+
+   prim : NUM            { result = val[0] }
+        | '[' expr ']'   { result = val[1] }
+        | '(' expr ')'   { result = val[1] }
+
+
+#  if_stmt: IF expr then stmt_list elsif else END
+#  then   : THEN
+
+
+
+end
+---- inner
+  def parse(str)
+    p str
+    @tokens = str.split(/([zv\[\]\(\)\+\-\*\/])/)
+    @tokens.delete" "
+    @tokens.map!{|m| m.strip }
+    p @tokens
+#        exit
+
+    do_parse
+  end
+
+  def next_token
+    token = @tokens.shift
+#    p token
+    case token
+    when /^\d+\z/
+      return [:NUM, token.to_i]
+    when /\s/
+      p "space_err"
+      return [:NUM , 10 ]
+    when nil
+      return nil
+    else
+      return [token, nil]
+    end
+  end

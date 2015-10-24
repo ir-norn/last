@@ -1,30 +1,11 @@
-# dxruby Šg’£
+# dxruby ï¿½gï¿½ï¿½
 require "__tewi/req"  if $0 ==__FILE__
 
 
-#--------------------------------------
-#
-#   module Nazrin
-#     include Collision_hit_shot
-#
-#------------------------------------------
-module Collision_hit_shot
-  def hit o
-    hit_shot o
-  end
-  def shot o
-    hit_shot o
-  end
-end
-
-
-
-
-
 
 #------------------------------------------
 #
-#  CollisionCircle ƒNƒ‰ƒX@‚ÌŠg’£
+#  CollisionCircle ï¿½Nï¿½ï¿½ï¿½Xï¿½@ï¿½ÌŠgï¿½ï¿½
 #
 #
 #
@@ -42,16 +23,16 @@ class CollisionCircle
     @tmp.y = @o.y
     @tmp.d = @md
     @mx , @my = Lumia.get_xy_center @o , @tmp
-    
+
     return set_2 @mx , @my
   end
   alias initialize_2 initialize
   def initialize o , x , y , r
     @mx = x
-    @my = y    
+    @my = y
                     r2 = r*2
     @md = Image.new(r2,r2).circle( r , r , r , [200 , 255,55,255] )
-    @o  = o 
+    @o  = o
     @tmp = Struct.new(:x,:y,:d).new
 
     initialize_2 o , x , y , r
@@ -66,7 +47,7 @@ end
 
 #------------------------------------------
 #
-#  êŠ‚É‚æ‚Á‚Ä•½’Rƒ^ƒXƒN‚Åˆ—‚·‚é‚Æ‚«‚Ìˆ×‚Ìloop2
+#  ï¿½êŠï¿½É‚ï¿½ï¿½ï¿½ï¿½Ä•ï¿½ï¿½Rï¿½^ï¿½Xï¿½Nï¿½Åï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Ìˆ×‚ï¿½loop2
 #
 #
 #
@@ -82,10 +63,7 @@ module Window
         yield
       end
     end
-    #
-    def drawFont2 x , y , s , hs = Hash.new
-      drawFont x , y , s , Yuyuko.font , hs
-    end
+
   end
 end
 
@@ -93,28 +71,17 @@ end
 
 #------------------------------------------
 #
-#  Lumia.rb ‚Ì3ŸŒ³”z—ñLoadŠÖ”
+#  Lumia.rb ï¿½ï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ï¿½Loadï¿½Öï¿½
 #
 #
 #
 #------------------------------------------
 
 
-# Image ‚Æ Sound ‚Ì ƒ[ƒhŠÖ”‚ğˆê‚É‚·‚é‚½‚ß‚Ì‹Lq
-# Lumia.rb ‚Åg—p
+# Image ï¿½ï¿½ Sound ï¿½ï¿½ ï¿½ï¿½ï¿½[ï¿½hï¿½Öï¿½ï¿½ï¿½ï¿½êï¿½É‚ï¿½ï¿½é‚½ï¿½ß‚Ì‹Lï¿½q
+# Lumia.rb ï¿½Ågï¿½p
 class Sound
   def self.load s
     self.new s
   end
 end
-
-
-
-
-
-
-
-
-
-
-
