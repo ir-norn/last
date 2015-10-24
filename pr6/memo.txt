@@ -1,0 +1,2 @@
+        node_self.search_up(/title/).up.delete if Input.keyPush? K_4
+

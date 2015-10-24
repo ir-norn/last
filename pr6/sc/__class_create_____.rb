@@ -5,7 +5,6 @@ require "Time"
 
 ARGV.each do |m|
 
-
 str = <<-TTT
 \# -*- encoding: UTF-8 -*-
 #
@@ -22,12 +21,9 @@ module AnneRose
       node_self.Task :default_code do |o|  o.Code do
         node_self.Flandoll << :MSG_CODE1 if Input.keyPush? K_1
         node_self.Flandoll << :MSG_CODE2 if Input.keyPush? K_2
-        node_self.Flandoll << :return    if Input.keyPush? K_8
         node_self.up.delete              if Input.keyPush? K_9
-        node_self.Scarlet = {
-          :return => :default ,
-          :test_data => "test_data_by:\#{node_self.sym}" }
-      end end
+        node_self.Scarlet = { :test_data => "test_data_by:\#{node_self.sym}" }
+      end end if $__DEBUG_CODE.SCENE_FLAG
       main
     end # initialize
     def main
@@ -39,6 +35,8 @@ module AnneRose
 end \# m
 TTT
 
+
+system" md #{File.dirname(m)}"
   begin
     open( m + ".rb")
     puts "#{m}.rb exists"

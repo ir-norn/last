@@ -2,10 +2,10 @@
 #
 require "__tewi/req"  if $0 ==__FILE__
 #
-# 2015-10-24 17:07:06 +0900
-# ---------------------------------------- AnneRose\option ----------------------------------------
+# 2015-10-24 17:07:04 +0900
+# ---------------------------------------- AnneRose\story_stage5 ----------------------------------------
 module AnneRose
-  class Option
+  class Story_stage5
     attr_accessor :node_self, :font
     def initialize _
       @node_self = _
@@ -20,8 +20,8 @@ module AnneRose
     end # initialize
     def main
       node_self.Task :default do |o|  o.Code do
-        Window.drawFont(50,  10, "--AnneRose/option--"   , @font)
+        Window.drawFont(50,  10, "--AnneRose/story_stage5--"   , @font)
       end end
     end # def
-  end # AnneRose\option
+  end # AnneRose\story_stage5
 end # m
