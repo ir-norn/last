@@ -3,15 +3,23 @@ require "kconv"
 require "Time"
 
 
+p "class_create_old_version"
+
+exit
+
 ARGV.each do |m|
 
 str = <<-TTT
-\# -*- encoding: UTF-8 -*-
-#
+#coding:utf-8
+# --------------------------------
+# this file creating meta
+# - #{Time.now}
+# - meta script is #{__FILE__}
+# --------------------------------
+
 require "__tewi/req"  if $0 ==__FILE__
-\#
-\# #{Time.now}
-\# ---------------------------------------- #{m} ----------------------------------------
+
+# ---------------------------------------- #{m} ----------------------------------------
 module AnneRose
   class #{File.basename(m).capitalize}
     attr_accessor :node_self, :font
@@ -36,15 +44,15 @@ end \# m
 TTT
 
 
-system" md #{File.dirname(m)}"
-  begin
-    open( m + ".rb")
-    puts "#{m}.rb exists"
-  rescue
+  system" md #{File.dirname(m)}"
+
+  file = m + ".rb"
+  if File.exists?( file )
+    puts "#{file} file _ exists _ error"
+  else
     puts str
-    open( m + ".rb" , "w").print str.toutf8
-    p "file create #{m}"
-    puts %!require dir + "in/Menu"!
+    open( file , "w").print str.toutf8
+    puts "created file _ #{file}"
   end
 
 end

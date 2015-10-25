@@ -29,9 +29,10 @@ end
 require dir + "const"
 # ------------- task -------------------------
 require dir + "yk/tree_task_search"
-require dir + "yk/Yuyuko"
+require dir + "yk/tree_task"
 # -- scene lib
 # -- scene
-Dir[dir+"AnneRose/*.rb"].map do |m| require m end
 # -- tree
-require dir + "tree"
+Dir[dir + "AnneRose/*.rb"].map do |m| require m end
+
+require dir + "Merkle_tree_meta"

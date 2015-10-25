@@ -1,6 +1,13 @@
+#
+# not true
+replace_project: YES # not true!
+project_name: AnneRose
+app_name: __title__
+out_file: Merkle_tree_meta.rb
+replace_tree: true
 
 
-
+#  Merkle tree
 top:
   title:
     menu:

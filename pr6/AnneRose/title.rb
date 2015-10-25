@@ -1,8 +1,14 @@
-# -*- encoding: UTF-8 -*-
+#coding:utf-8
 #
+# ----------------------------------------------------------------
+#
+# - 2015-10-25 | 09:11:16
+# - meta script is sc/__scene_create.rb
+#
+# ----------------------------------------------------------------
+
 require "__tewi/req"  if $0 ==__FILE__
-#
-# 2015-10-24 17:07:03 +0900
+
 # ---------------------------------------- AnneRose\title ----------------------------------------
 module AnneRose
   class Title
@@ -19,9 +25,10 @@ module AnneRose
       main
     end # initialize
     def main
-      node_self.Task :default do |o|  o.Code do
-        Window.drawFont(50,  10, "--AnneRose/title--"   , @font)
-      end end
+      node_self.Task :default do |o|  o.Code do mainloop end end
+    end
+    def mainloop
+      Window.drawFont(50,  10, "--AnneRose/title--xxx"   , @font)
     end # def
   end # AnneRose\title
 end # m

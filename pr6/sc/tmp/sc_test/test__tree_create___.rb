@@ -1,12 +1,11 @@
 require"yaml"
 require "pp"
 
-data = YAML.load_file("meta_conf.yaml")
-pp data
+data = YAML.load_file("./sc_test/meta_conf.yaml")
+# pp data
 
 $nest = 0
-$buf = ""
-$buf << <<-TTT
+$buf="";$buf << <<-TTT
 Tree_task.new.Main :AnneRose_main do | o |
   o.Code do
     if o.task.empty?
@@ -14,11 +13,15 @@ Tree_task.new.Main :AnneRose_main do | o |
     end
     case o.Flandoll.pop
 TTT
-def f hs , n
+def f list , n
+  p list.size
   $nest = [$nest , n].max
-      k = hs.keys.first
-      v = hs.values.first
-    if v
+  list.each_with_index do | m , i |
+      p m
+#      exit
+    if m.class == Array
+      p 33
+      exit
 $buf << <<-TTT
   when :#{k} , :MSG_CODE#{1}
     o.Loop :#{k} do |o|
@@ -44,12 +47,19 @@ TTT
           end
       TTT
     end # els
+  end #each
 end # f
-f( data["top"] , 0 )
+f( data[1] , 0 )
 $buf << "end " * 3 * $nest
 $buf << "end end end" #  main
 
-# puts $buf
+
+
+#puts $buf
+
+
+__END__
+
 # indent
 loop do break unless $buf.gsub!("end end","end\nend") end
 $do_case_if = 1
