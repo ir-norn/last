@@ -1,7 +1,8 @@
 require"yaml"
 require "pp"
 
-data = YAML.load_file("meta_conf.yaml")
+# Dir.chdir File.dirname(File.expand_path(__FILE__))+"/"
+data = YAML.load_file("./sc/meta_conf.yaml")
 pp data
 p "-- yaml settings result --"
 p out_file = data["out_file"]
@@ -14,24 +15,26 @@ $buf=""; $buf << <<-TTTEXT
 #coding:utf-8
 #
 # ----------------------------------------------------------------
-# this file creating meta
 #
 # - #{Time.now.strftime("%F | %X")}
-# - meta script is #{__FILE__}
+# - meta script | #{__FILE__}
 #
+require "__dev/req" if $0 ==__FILE__
 # ----------------------------------------------------------------
 
-# --- meta tree ---
+# --- scene ---
+Dir["./#{Project_name}/*.rb"].map { |m| require m }
+
+# --- Merkle_tree ---
 
 Merkle_tree.new.Main :#{Project_name}_main do | o |
   o.Code do
-    if o.task.empty?
-      o.Flandoll << :title
+    case
+    when o.task.empty? then o.Flandoll << :title
     end
     case o.Flandoll.pop
 TTTEXT
 def f hs , n
-
 # end add
   $nest = [$nest , n].max
   hs.each.with_index 1 do | (k,v),i|
@@ -71,9 +74,12 @@ $do_case_if = 1
 $buf =
 $buf.each_line.inject "" do | ret , m |
   m.strip! ; m <<  "\n"
-  if m =~ /do|case|if/ then $do_case_if += 1 end
-  if m =~ /end/        then $do_case_if -= 1 end
-  ret << "  " * $do_case_if  ; ret << m
+  if m[0] != "#" # comment
+    ret << "  " * $do_case_if  ;
+    if m =~ /do|case/ then $do_case_if += 1 end
+    if m =~ /end/     then $do_case_if -= 1 end
+  end
+  ret << m
 end
 
 # puts $buf

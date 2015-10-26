@@ -2,7 +2,7 @@
 require "kconv"
 r = ARGV[0]
 if r.nil?
-  p "r to nil"
+  p "arg to nil"
   p "kensaku hikisuu sitei"
   exit
 end
