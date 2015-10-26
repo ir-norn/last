@@ -44,6 +44,7 @@ def f hs , n
      $nest -= co
   end
 # -----------------
+
   if v.class == Hash
 $buf << <<-TTTEXT
   when :#{k} , :MSG_CODE#{i}
@@ -62,6 +63,7 @@ $buf << <<-TTTEXT
         end
 TTTEXT
     end # els
+
   end # each
 end # f
 f( data["top"] , 0 )
@@ -69,15 +71,16 @@ $buf << "end " * 3 * $nest
 $buf << "end end end" #  main
 
 # ------------ indent
+# TODO when..
 nil while $buf.gsub!("end end","end\nend")
-$do_case_if = 1
+indent = 1
 $buf =
 $buf.each_line.inject "" do | ret , m |
   m.strip! ; m <<  "\n"
   if m[0] != "#" # comment
-    ret << "  " * $do_case_if  ;
-    if m =~ /do|case/ then $do_case_if += 1 end
-    if m =~ /end/     then $do_case_if -= 1 end
+    if m =~ /end|when/       then indent -= 1 end
+      ret << "  " * indent if indent > 0
+    if m =~ /\sdo|case|when/ then indent += 1 end
   end
   ret << m
 end

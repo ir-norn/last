@@ -22,7 +22,7 @@ class Game_Scene01_class
 end
 
 
-class　Game_Object01_class
+module　Game_Object01_mix
   def constructor
     @dat = "データ"
   end
