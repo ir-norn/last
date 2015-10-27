@@ -2,7 +2,7 @@
 #
 # ----------------------------------------------------------------
 #
-# - 2015-10-26 | 23:28:17
+# - 2015-10-27 | 09:17:07
 # - meta script | sc/__scene_create.rb
 #
 require "__dev/req" if $0 ==__FILE__
@@ -15,16 +15,18 @@ module AnneRose
     def initialize _
       @node_self = _
       @font      = Font.new 30
-      @node_self.Task :debug_code do |o|  o.Code do
+      @node_self.Task :window_update do |o| o.Code do
         Window.sync
         Window.update
         exit if Input.update
-        if @node_self.DEBUG_CODE.MAIN_LOOP
+      end end
+      @node_self.Task :debug_code do |o| o.Code do
+        if @node_self.DEBUG_CODE.MAIN_LOOP_FLAG
           @node_self.up.delete     if Input.keyPush? K_F4
            @node_self.search_up( @node_self.TOP_SYM ).delete if Input.keyPush? K_F6
            break      if Input.keyPush? K_F8
            exit       if Input.keyPush? K_F9
-   #        screenshot if Input.keyPush? K_F12
+           @node_self.DEBUG_CODE.SCREENSHOT_CALL if Input.keyPush? K_F12
         end
 
         @node_self.Flandoll << :MSG_CODE1 if Input.keyPush? K_1

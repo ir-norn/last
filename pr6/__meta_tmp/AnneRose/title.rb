@@ -2,7 +2,7 @@
 #
 # ----------------------------------------------------------------
 #
-# - 2015-10-26 | 23:27:50
+# - 2015-10-27 | 09:01:03
 # - meta script | sc/__scene_create.rb
 #
 require "__dev/req" if $0 ==__FILE__
@@ -19,7 +19,7 @@ module AnneRose
         Window.sync
         Window.update
         exit if Input.update
-        if @node_self.DEBUG_CODE.MAIN_LOOP
+        if @node_self.DEBUG_CODE.MAIN_LOOP_FLAG
           @node_self.up.delete     if Input.keyPush? K_F4
            @node_self.search_up( @node_self.TOP_SYM ).delete if Input.keyPush? K_F6
            break      if Input.keyPush? K_F8
@@ -32,6 +32,9 @@ module AnneRose
         @node_self.up.delete              if Input.keyPush? K_9
         @node_self.Scarlet = { :test_data => "test_data_by:#{@node_self.sym}" }
       end end if @node_self.DEBUG_CODE.SCENE_FLAG
+      @node_self.DEBUG_CODE.DESTRUCTER do
+        p :DESTRUCTER
+      end
       main
     end # initialize
     def main

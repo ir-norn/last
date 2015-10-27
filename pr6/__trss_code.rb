@@ -1,4 +1,60 @@
+#coding:utf-8
 
+
+p Proc.new
+
+p a
+p ->{}
+p lambda{}
+p main
+exit
+hs=Hash[1,2,3,4,5,6]
+#hs.values.each &:display
+#hs.each do|k,v| p k end.clear
+#  p hs
+module DEBUG
+  def initialize
+    p 1
+    super
+  end
+end
+class A
+  def initialize
+    p 2
+    super
+  end
+  include DEBUG
+end
+A.new
+exit
+
+module A
+  def f
+    p 122
+    super rescue p $!
+  end
+end
+
+module C
+  def f
+    p 3
+    super
+  end
+end
+
+class B
+  include A
+  include C
+  def f
+    p 2
+    super
+  end
+end
+B.new.f
+
+
+
+exit
 
 class Game_Scene01_class
   def constructor
@@ -22,8 +78,8 @@ class Game_Scene01_class
 end
 
 
-module　Game_Object01_mix
-  def constructor
+module Game_Object01_mix
+  def constructorx
     @dat = "データ"
   end
   def mainloop

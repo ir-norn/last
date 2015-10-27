@@ -4,11 +4,14 @@
 require "dxruby"
 require "dxrubyex"
 require "yaml"
-# --- Lib ---
-require "./lib/ruby_ex"
-require "./lib/dxruby_ex"
-# --- project ---
+# --- base system ---
+require "./system/debug"
 require "./system/tree_task_search"
 require "./system/tree_task"
+# --- project ---
 require "./conf"
+# --- lib ---
+require "./lib/lib"
+
+# --- run ---
 require "./Merkle_tree"

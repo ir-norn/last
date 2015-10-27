@@ -2,7 +2,7 @@
 #
 # ----------------------------------------------------------------
 #
-# - 2015-10-26 | 23:15:00
+# - 2015-10-27 | 09:01:05
 # - meta script | sc/__scene_create.rb
 #
 require "__dev/req" if $0 ==__FILE__
@@ -19,7 +19,7 @@ module AnneRose
         Window.sync
         Window.update
         exit if Input.update
-        if @node_self.DEBUG_CODE.MAIN_LOOP
+        if @node_self.DEBUG_CODE.MAIN_LOOP_FLAG
           @node_self.up.delete     if Input.keyPush? K_F4
            @node_self.search_up( @node_self.TOP_SYM ).delete if Input.keyPush? K_F6
            break      if Input.keyPush? K_F8

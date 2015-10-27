@@ -48,26 +48,6 @@ def f hs , n
      $nest -= co
   end
 # -----------------
-
-#   if v.class == Hash
-# $buf << <<-TTTEXT
-#   when :#{k} , :MSG_CODE#{i}
-#     o.Loop :#{k} do |o|
-#        #{Project_name}::#{k.capitalize}.new o
-#        o.Code do
-#          case o.Flandoll.pop
-# TTTEXT
-#       f v , n + 1  #  ---------------- rec ----------------
-#     else
-# $buf << <<-TTTEXT
-#   when :#{k}, :MSG_CODE#{i}
-#         o.Loop :#{k} do |o|
-#            #{Project_name}::#{k.capitalize}.new o
-#            o.Code do end
-#         end
-# TTTEXT
-#     end # els
-
   if v.class == Hash
 $buf << <<-TTTEXT
   when :#{k} , :MSG_CODE#{i}
@@ -102,7 +82,7 @@ $buf << "end end end" #  main
 # ------------ indent
 # TODO when..
 nil while $buf.gsub!("end end","end\nend")
-indent = 1
+indent = 2
 $buf =
 $buf.each_line.inject "" do | ret , m |
   m.strip! ; m <<  "\n"
