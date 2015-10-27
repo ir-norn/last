@@ -7,12 +7,12 @@
 #
     require "__dev/req" if $0 ==__FILE__
 # ----------------------------------------------------------------
-    
+
 # --- scene ---
     Dir["./AnneRose/*.rb"].map { |m| require m }
-    
+
 # --- Merkle_tree ---
-    
+
     Merkle_tree.new.Main :AnneRose_main do | o |
       o.Code do
         case

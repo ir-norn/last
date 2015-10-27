@@ -1,58 +1,39 @@
 #coding:utf-8
 require "__dev/req"  if $0 ==__FILE__
 
-# -- lib --
-module Create_method_uniq_sym
-  class << self
-    def extended o
-      o.extend Module.new { attr_accessor :uniq_sym }
-      o.uniq_sym     = c_uniq_sym
-    end
-    def c_uniq_sym
-      _=0;->sym=""{ return "#{sym}_uniq_#{_+=1}".to_sym }
-    end
-  end
-end
 
 module Merkle_tree_m
   include Tree_task_search_m
-# task
-  attr_accessor :func
-  attr_accessor :task ,:up ,:sym , :n
-  attr_accessor :task_do  # hash error 対策
+  attr_accessor :sym , :up , :func , :task , :n
 # TREE TASK SYSTEM ADD  variables
-  attr_accessor :Flandoll
-  attr_accessor :Scarlet
+# この2変数はシーン側で足すべきかもね
+  attr_accessor :Flandoll , :Scarlet  # Message_Q / Scene間のデータ移動
   def initialize hs = Hash.new , &block
-    @func    = block
-    @task    = Hash.new
-    @up      = hs[:up]
-    @sym     = hs[:sym] || :nil
-    @task_do = []
+    @sym      = hs[:sym]
+    @up       = hs[:up]
+    @func     = block
+    @task     = []
 # scene
     @Flandoll = []
     @Scarlet  = Hash.new
-# method add
-    extend Create_method_uniq_sym
   end
   #
   def __taskloop
-    task_do.each do | b | task.store( b.sym , b ) end.clear
-    task.map do | key , v | task[key].func = v.func[v].func end
+    task.each do | b | b.func = b.func[b].func end
   end
   def Main sym , &block
     Task sym , &block
     nil while not __taskloop.empty?
   end
   def Task sym = :task , &block
-    task_do << self.class.new(up:self , sym:self.uniq_sym[sym] , &block)
+    task << self.class.new(up:self , sym: :"#{sym}_#{self.hash}" , &block)
   end
   def Code
     self.class.new do
       yield
       __taskloop
       self
-    end # new # class.new なくても動くけどなぜか思い。
+    end
   end
 # --- ユーティリティ ---
   def TOP_NODE
@@ -66,10 +47,10 @@ module Merkle_tree_m
   end
   def delete
     if up
-      up.task.delete self.sym
+      up.task.delete self
       task.clear
     end
-  end # def
+  end
 end # end-module
 
 class Merkle_tree

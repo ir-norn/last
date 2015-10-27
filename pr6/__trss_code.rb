@@ -1,5 +1,25 @@
 #coding:utf-8
 
+module Book
+  def initialize(title)
+    @title = title
+  end
+  def title5yr6h
+    @title
+  end
+end
+
+p Book.instance_methods(false)
+
+exit
+
+p Object.new.hash
+p Object.new.hash
+p Object.new.hash
+p 1.hash
+
+
+exit
 
 p Proc.new
 

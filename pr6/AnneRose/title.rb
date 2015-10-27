@@ -38,15 +38,47 @@ module AnneRose
         p :DESTRUCTER
       end
       main
+      @ev   = event_proc
+      @flan = flan_proc
     end # initialize
+    def flan_proc
+      Fiber.new do loop do
+        p @node_self.Flandoll << Fiber.yield
+      end end
+    end
+    def event_proc
+      Fiber.new do loop do
+          code , *arg = Fiber.yield
+          case code
+          when :VK_0
+            p :test
+          when :VK_1
+            p :xxxx
+          else
+            p :message_err
+      end end end
+    end
     def main
-      @node_self.extend Create_method_print
-      @node_self.extend Create_method_delete_lazy
-      @node_self.delete_lazy 100
+
+#      @node_self.extend Create_method_print
+#      @node_self.extend Create_method_delete_lazy
+#      @node_self.delete_lazy 100
+#p @node_self.TOP_NODE.sym
+#    p  @node_self.search_up(/AnneRose_main/)
       @node_self.Task :default do |o| o.Code do
-        Window.drawFont(50,  10, "--AnneRose/title--" , @font)
+        if Input.keyPush? K_4
+          @ev.resume :VK_sxx ,1,2,3
+        end
+        if Input.keyPush? K_5
+          @ev.resume :VK_0
+        end
+        if Input.keyPush? K_6
+          @flan.resume :menu
+        end
+
+        Window.draw_font(50,  10, "--AnneRose/title--" , @font)
         # @node_self.print(50,  90, "--xxxx--")
-        @node_self.print(50,  90, "--xxxx--")
+#        @node_self.print(50,  90, "--xxxx--")
         # @node_self.Window.print(50,  90, "--xxxx--" )
       end end
     end # def
