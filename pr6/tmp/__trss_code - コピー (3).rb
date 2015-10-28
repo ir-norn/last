@@ -9,7 +9,6 @@ class Create_VK_action
   attr_accessor :module
   def initialize profile
     @module = Module.new do
-      def VK_Replay_update;end # Create_VK_action_ex
       self.define_singleton_method :extended do | mod |
         key_data = YAML.load open("./dat/keyconfig.yaml")
         [ :VK_Push? , :padPush? ,:keyPush? ,
@@ -26,56 +25,74 @@ class Create_VK_action
 end end # class initialize
 
 
-class Create_VK_action_ex
+class Create_VK_action_save
   attr_accessor :module
-  def initialize profile , save_file , action
+  def initialize profile , save_file
     @module = Module.new do
-# share var ----
+# vk key ----
       flame = 0
-# --- SAVE ---
-      save = -> do
-        save = Fiber.new do
-          keyhs = Hash.new ; keyhs.default_proc =->h,k{h[k]=[]}
-          [*:VK_0..:VK_15,:VK_LEFT,:VK_UP,:VK_RIGHT,:VK_DOWN]
-          .each do|vk| keyhs[vk] << nil end
-          loop do
-             profile , vk = Fiber.yield
-             p flame , profile + vk.to_s
-             keyhs[vk] << flame
-             data = {
-                   :VK_log=> keyhs }
-             yaml_f = open( save_file ,"w") ; YAML.dump(data, yaml_f) ; yaml_f.close
-          end # loop
-        end ; save.resume ; save end.call
-# --- REPLAY ---
-      if action == :replay
-        key_save_data = YAML.load open(save_file)
-      end # if
-# --- share ---
+      rep = Fiber.new do
+        # key_data = YAML.load open(save_file) ; pp key_data ;  exit
+        keyhs = Hash.new
+        keyhs.default_proc =->h,k{h[k]=[]}
+        (:VK_0..:VK_15).each do|vk| keyhs[vk] << nil end
+        loop do
+           profile , vk = Fiber.yield true
+           p flame , profile + vk.to_s
+           keyhs[vk] << flame
+           data = {
+                 :profileN=>profile,
+                 :VK_log=> keyhs }
+           yaml_f = open( save_file ,"w")
+           YAML.dump(data, yaml_f)
+           yaml_f.close
+        end
+      end ; rep.resume
       self.define_singleton_method :extended do | mod |
         key_data = YAML.load open("./dat/keyconfig.yaml")
         [ :VK_Push? , :padPush? ,:keyPush? ,
           :VK_Down? , :padDown? ,:keyDown? ,
         ].each_slice(3) do | me , pad , key |
           mod.define_singleton_method me do | vk |
-# ---REPLAY ---
-            if action==:replay;
-              return key_save_data[:VK_log][vk].include?(flame)
-            end
-# --- ///REPLAY  リプレイ関係ここまで ----
-
-# --- SAVE --- & action == nil ///  ここが唯一 falseの可能性ある場所
             return if not key_data[ profile.to_s ][ vk.to_s ].any? do | m |
-              Input.method(m=~/P_/?pad: key)[ key_data["dxruby_keycode"][m] ]
+              Input.method(m=~/P_/?pad:key)[ key_data["dxruby_keycode"][m] ]
             end
-# --- SAVE ---
-            if action==:save;save.resume(profile, vk) end
-# --- SAVE --- & action == nil / return
-            return true
+            rep.resume( profile , vk )
           end # mod
         end # each
-# --- SAVE --- REPLAY ---
+# ------
         mod.define_singleton_method :VK_Replay_update do flame+=1 end
+#        self.define_singleton_method :flame_get do flame end
+
+      end # extended
+    end # module.new
+end end # class initialize
+
+
+
+# ------------------_play
+
+class Create_VK_action_replay
+  attr_accessor :module
+  def initialize profile , save_file
+    @module = Module.new do
+# vk key ----
+        key_save_data = YAML.load open(save_file)
+#        pp key_save_data ;  exit
+        flame = 0
+      self.define_singleton_method :extended do | mod |
+        key_data = YAML.load open("./dat/keyconfig.yaml")
+        [ :VK_Push? , :padPush? ,:keyPush? ,
+          :VK_Down? , :padDown? ,:keyDown? ,
+        ].each_slice(3) do | me , pad , key |
+          mod.define_singleton_method me do | vk |
+            key_save_data[:VK_log][vk].include?(flame)
+          end # mod
+        end # each
+# ------
+        mod.define_singleton_method :VK_Replay_update do flame+=1 end
+        self.define_singleton_method :flame_get do flame end
+
       end # extended
     end # module.new
 end end # class initialize
@@ -83,13 +100,14 @@ end end # class initialize
 
 
 o =  Object.new
-# o.extend Create_VK_action.new("profile0").module
-# o.extend Create_VK_action_ex.new("profile0" , "./replay0.yaml" , :save).module
-o.extend Create_VK_action_ex.new("profile0" , "./replay0.yaml" , :replay).module
+o.extend Create_VK_action.new("profile0").module
+ o.extend Create_VK_action_save.new("profile0" , "./replay0.yaml").module
+#o.extend Create_VK_action_replay.new("profile0" ,"./replay0.yaml").module
+
 
 g=[ [false]*10,[true]*4].flatten.cycle
 Window.loop do
- o.VK_Replay_update
+  o.VK_Replay_update
   if g.next
     if o.VK_Down? :VK_3
       p :t

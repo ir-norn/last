@@ -9,7 +9,7 @@ class Create_VK_action
   attr_accessor :module
   def initialize profile
     @module = Module.new do
-      def VK_Replay_update;end # Create_VK_action_ex
+#      def VK_Replay_update;end
       self.define_singleton_method :extended do | mod |
         key_data = YAML.load open("./dat/keyconfig.yaml")
         [ :VK_Push? , :padPush? ,:keyPush? ,
@@ -28,7 +28,7 @@ end end # class initialize
 
 class Create_VK_action_ex
   attr_accessor :module
-  def initialize profile , save_file , action
+  def initialize profile , save_file = "" , action = nil
     @module = Module.new do
 # share var ----
       flame = 0
@@ -36,20 +36,50 @@ class Create_VK_action_ex
       save = -> do
         save = Fiber.new do
           keyhs = Hash.new ; keyhs.default_proc =->h,k{h[k]=[]}
-          [*:VK_0..:VK_15,:VK_LEFT,:VK_UP,:VK_RIGHT,:VK_DOWN]
-          .each do|vk| keyhs[vk] << nil end
+          (:VK_0..:VK_15).each do|vk| keyhs[vk] << nil end
           loop do
              profile , vk = Fiber.yield
              p flame , profile + vk.to_s
              keyhs[vk] << flame
              data = {
+                   :profileN=>profile,
                    :VK_log=> keyhs }
              yaml_f = open( save_file ,"w") ; YAML.dump(data, yaml_f) ; yaml_f.close
           end # loop
         end ; save.resume ; save end.call
 # --- REPLAY ---
+
+p [143, 144, 145, 146, 246,400..500].include? 144
+p [143, 144, 145, 146, 246,400..500].include? 450
+exit
       if action == :replay
         key_save_data = YAML.load open(save_file)
+        start = nil
+        en = nil
+        tmp = []
+        key_save_data[:VK_log].take(3).each do |m|
+          p m[1].compact!
+          m[1].inject 0 do|r , b|
+            if r+1 == b
+              tmp << b
+              if start == nil ;
+                start = r
+              end
+            elsif start ;
+p 9999
+ p tmp
+ p (tmp.first..tmp.last)
+              p start , b
+              start = nil
+              exit
+            end
+            b
+          end # injec
+
+#            (:VK_0..:VK_15).each do|vk|
+        end  # each
+        # pp key_save_data
+        exit
       end # if
 # --- share ---
       self.define_singleton_method :extended do | mod |
@@ -60,6 +90,7 @@ class Create_VK_action_ex
           mod.define_singleton_method me do | vk |
 # ---REPLAY ---
             if action==:replay;
+
               return key_save_data[:VK_log][vk].include?(flame)
             end
 # --- ///REPLAY  リプレイ関係ここまで ----
@@ -72,6 +103,8 @@ class Create_VK_action_ex
             if action==:save;save.resume(profile, vk) end
 # --- SAVE --- & action == nil / return
             return true
+#            print "#{__FILE__} error_key_extended"
+#            nil
           end # mod
         end # each
 # --- SAVE --- REPLAY ---
@@ -83,9 +116,13 @@ end end # class initialize
 
 
 o =  Object.new
-# o.extend Create_VK_action.new("profile0").module
-# o.extend Create_VK_action_ex.new("profile0" , "./replay0.yaml" , :save).module
-o.extend Create_VK_action_ex.new("profile0" , "./replay0.yaml" , :replay).module
+o.extend Create_VK_action.new("profile0").module
+#o.extend Create_VK_action_save.new("profile0" , "./replay0.yaml").module
+# o.extend Create_VK_action_replay.new("profile0" ,"./replay0.yaml").module
+
+#o.extend Create_VK_action_ex.new("profile0" , "./replay0.yaml" , :save).module
+ o.extend Create_VK_action_ex.new("profile0" , "./replay0.yaml" , :replay).module
+#o.extend Create_VK_action_ex.new("profile0").module
 
 g=[ [false]*10,[true]*4].flatten.cycle
 Window.loop do
