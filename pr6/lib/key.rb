@@ -59,14 +59,18 @@ class Create_VK_action_ex
         ].each_slice(3) do | me , pad , key |
           mod.define_singleton_method me do | vk |
 # ---REPLAY ---
+
             if action==:replay;
               return key_save_data[:VK_log][vk].include?(flame)
             end
 # --- ///REPLAY  リプレイ関係ここまで ----
+            x = ""
+            y = ""
+             ("P_TEST"=~/P_/?x:y)
 
 # --- SAVE --- & action == nil ///  ここが唯一 falseの可能性ある場所
             return if not key_data[ profile.to_s ][ vk.to_s ].any? do | m |
-              Input.method(m=~/P_/?pad: key)[ key_data["dxruby_keycode"][m] ]
+              Input.method(m=~/P_/?pad:key)[ key_data["dxruby_keycode"][m] ]
             end
 # --- SAVE ---
             if action==:save;save.resume(profile, vk) end

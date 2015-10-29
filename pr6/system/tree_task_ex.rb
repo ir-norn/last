@@ -15,7 +15,24 @@ module Create_method_delete_lazy
 end
 
 
-module Tree_task_search_m
+module Merkle_tree_m_ex
+# --- ユーティリティ ---
+  def TOP_NODE
+    return up.up.TOP_NODE if up.up
+    self
+  rescue
+    self
+  end
+  def TOP_SYM
+    self.TOP_NODE.sym
+  end
+  def delete
+    if up
+      up.task.delete self
+      task.clear
+    end
+  end
+
 # selfより上の一番近い selfを返す
   def search_up sym
     return self if self.sym =~ /#{sym}/

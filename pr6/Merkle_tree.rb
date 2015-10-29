@@ -9,7 +9,7 @@
 # ----------------------------------------------------------------
 
 # --- scene ---
-    Dir["./AnneRose/*.rb"].map { |m| require m }
+#    Dir["./AnneRose/*.rb"].map { |m| require m }
 
 # --- Merkle_tree ---
 
@@ -23,6 +23,10 @@
           o.Task :title do |o|
             o.Code do
               o.Main :title_main do |o|
+                # eval open("./block_kuzusi.rb").read
+                # exit
+                 load("./block_kuzusi.rb")
+#                load("./AnneRose/title.rb")
                 AnneRose::Title.new o
                 o.Code do
                   case o.Flandoll.pop
