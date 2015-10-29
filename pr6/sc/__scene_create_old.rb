@@ -40,7 +40,7 @@ str = <<-TTTEXT
 # - #{Time.now.strftime("%F | %X")}
 # - meta script | #{__FILE__}
 #
-# require "__dev/req" if $0 ==__FILE__
+require "__dev/req" if $0 ==__FILE__
 # ----------------------------------------------------------------
 
 
@@ -71,26 +71,12 @@ module #{File.dirname(m)}
       main
     end # initialize
     def main
-      node_self = @node_self
-      Window.class_eval do
-        @node_self = node_self
-        def self.loop &block
-          @node_self.Task :default do |o| o.Code do
-            yield @node_self
-          end end
-        end
-      end
-      load("./#{File.dirname(m)}_src/#{File.basename(m)}_load.rb" , true ) rescue $!
       @node_self.Task :default do |o| o.Code do
         Window.drawFont(50,  10, "--#{File.dirname(m)}/#{File.basename(m)}--" , @font)
       end end
     end \# def
   end \# #{m}
 end \# m
-
-# o = ARGV.pop
-# #{File.dirname(m)}::#{File.basename(m).capitalize}.new
-
 TTTEXT
 
 

@@ -1,0 +1,9 @@
+#coding:utf-8
+
+task :default do | o |
+ p :default
+end
+
+task :compile do | o |
+
+end

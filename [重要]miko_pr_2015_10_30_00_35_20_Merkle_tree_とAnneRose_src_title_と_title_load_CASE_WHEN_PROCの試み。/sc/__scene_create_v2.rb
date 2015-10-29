@@ -40,7 +40,7 @@ str = <<-TTTEXT
 # - #{Time.now.strftime("%F | %X")}
 # - meta script | #{__FILE__}
 #
-# require "__dev/req" if $0 ==__FILE__
+require "__dev/req" if $0 ==__FILE__
 # ----------------------------------------------------------------
 
 
@@ -80,17 +80,13 @@ module #{File.dirname(m)}
           end end
         end
       end
-      load("./#{File.dirname(m)}_src/#{File.basename(m)}_load.rb" , true ) rescue $!
+      load("./#{File.dirname(m)}_src/#{File.basename(m)}.rb")
       @node_self.Task :default do |o| o.Code do
         Window.drawFont(50,  10, "--#{File.dirname(m)}/#{File.basename(m)}--" , @font)
       end end
     end \# def
   end \# #{m}
 end \# m
-
-# o = ARGV.pop
-# #{File.dirname(m)}::#{File.basename(m).capitalize}.new
-
 TTTEXT
 
 
