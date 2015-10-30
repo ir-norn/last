@@ -1,10 +1,11 @@
 
 module DEBUG_CODE_m
   class DEBUG_CODE_CLASS
-    attr_accessor :MAIN_LOOP_FLAG , :ERROR_MESSAGE_FLAG , :SCENE_FLAG ,
+    attr_accessor :ERROR_MESSAGE_FLAG , :SCENE_FLAG ,
     :DESTRUCTER_FUNC , :DESTRUCTER_CALL_FLAG
+    #attr_accessor :MAIN_LOOP_FLAG
     def initialize
-      @MAIN_LOOP_FLAG        = true
+#      @MAIN_LOOP_FLAG        = true
       @ERROR_MESSAGE_FLAG    = true
       @SCENE_FLAG            = true
       @DESTRUCTER_CALL_FLAG  = true
@@ -19,11 +20,7 @@ module DEBUG_CODE_m
     end
     # 設計上に問題あり、デストラクタが複数回呼ばれるので ->{} Dummyが必要
     def DESTRUCTER_CALL o
-      if o.task.class == Hash
-        o.task.values.each &:delete
-      else
-        o.task.each &:delete
-      end
+      o.task.each &:delete
       self.DESTRUCTER_FUNC.call
       self.DESTRUCTER_FUNC = ->{}
     end

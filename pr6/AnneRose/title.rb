@@ -1,7 +1,10 @@
 require "dxruby"
 
-#p ARGV ; ARGV.clear
+# require "__dev/req"  if $0 ==__FILE__
 
+# p ARGV ; ARGV.clear
+#
+# exit
 # ARGV.replace [ $0 ]
 # ARGF.each {|line|
 #     # 処理中の ARGV の内容を表示

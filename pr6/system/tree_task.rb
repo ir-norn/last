@@ -27,16 +27,3 @@ module Merkle_tree_m
     end
   end
 end
-
-# 別ファイルへ。　task_config?
-class Merkle_tree
-  include Merkle_tree_m
-  include Merkle_tree_m_ex
-  include DEBUG_CODE_m
-  attr_accessor :Flandoll , :Scarlet
-  def initialize **_
-    super
-    @Flandoll = []
-    @Scarlet  = Hash.new
-  end
-end
