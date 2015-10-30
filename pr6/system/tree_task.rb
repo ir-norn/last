@@ -28,6 +28,7 @@ module Merkle_tree_m
   end
 end
 
+# 別ファイルへ。　task_config?
 class Merkle_tree
   include Merkle_tree_m
   include Merkle_tree_m_ex

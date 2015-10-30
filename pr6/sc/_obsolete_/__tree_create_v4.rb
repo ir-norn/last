@@ -34,7 +34,7 @@ Merkle_tree.new.Main :#{Project_name}_main do | o |
     case o.Flandoll.pop
 TTTEXT
 
-END_add = 5
+END_add = 6
 
 def f hs , n
 
@@ -49,16 +49,15 @@ def f hs , n
 # -----------------
 
 when_main = <<-TTTEXT
-when :#{k} , :MSG_CODE#{i}
-  o.Task :#{k} do |o|
+when nil then true
+when -> rb do p :def ; false end
+when -> rb do
+  o.Task :"\#{rb}" do |o|
     o.Code do
-      o.Main :#{k}_main do |o|
-        Merkle_default_class.new o , "#{k}" , "#{Project_name}"
-##        \#{open("./#{Project_name}/#{k}.rb").read}
-#        load "./#{Project_name}/#{k}.rb" , false
-#       #{Project_name}::#{k.capitalize}.new o
+      o.Main :"\#{rb}_main" do |o|
+        Merkle_default_class.new o , rb , "#{Project_name}"
 TTTEXT
-
+when_main.chomp!
   if v.class == Hash
 $buf << <<-TTTEXT
       #{when_main}
@@ -70,6 +69,7 @@ TTTEXT
 $buf << <<-TTTEXT
          #{when_main}
            o.Code do end
+           end
         end
       end
     end
@@ -81,18 +81,23 @@ end # f
 f( data["top"] , 0 )
 $buf << "end " * END_add * $nest
 $buf << "end end end" #  main
+#$buf << " end" #  meta script v4_5 で追加
 
 # ------------ indent
 # TODO when..
 nil while $buf.gsub!("end end","end\nend")
-indent = 2
+indent = 1
 $buf =
 $buf.each_line.inject "" do | ret , m |
   m.strip! ; m <<  "\n"
   if m[0] != "#" # comment
     if m =~ /end|when/       then indent -= 1 end
       ret << "  " * indent if indent > 0
-    if m =~ /\sdo|case|when/ then indent += 1 end
+    if m =~ /\sdo|case|when/   then indent += 1 end
+
+#    if m =~ /Code.*?do.*?end/  then indent -= 1 end
+    if m =~ /when.*?do/        then indent += 1 end
+    if m =~ /when.*?do.*?end/  then indent -= 1 end
   end
   ret << m
 end

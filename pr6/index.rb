@@ -13,4 +13,5 @@ require "./conf"
 require "./lib/lib"
 
 # --- run ---
+require "./Merkle_default_class"
 require "./Merkle_tree"
