@@ -1,30 +1,16 @@
 #coding:utf-8
-#
+#require "__dev/req" if $0 ==__FILE__
 require"dxruby"
-
-##
-module Create_method_print
-  def self.extended o
-    name = :print
-    o.extend Module.new { attr_accessor name }
-#    Font.default
-#    Font.default=
-    font = Font.new(50)
-    o.define_singleton_method name do |x , y , str|
-      Window.drawFont x, y, str, font
-    end
-  end
+if $0 == __FILE__
+  ARGV.replace [ 1 , 2 ]
 end
 
-
-
-ARGV.replace [ *ARGV , 2 ]
-ARGV.replace [ *ARGV , 4 ]
-p ARGV
-ARGV.clear
-
+# x     = ARGV[0]
+# y     = ARGV[1]
+# ARGV.clear
 
 Window.loop do |o|
 
+  Window.draw_font(100,100," -- menu -- ",Font.default)
 
 end

@@ -1,21 +1,10 @@
-require "dxruby"
+require 'dxruby'
 
-# require "__dev/req"  if $0 ==__FILE__
 
-# p ARGV ; ARGV.clear
-#
-# exit
-# ARGV.replace [ $0 ]
-# ARGF.each {|line|
-#     # 処理中の ARGV の内容を表示
-#     p [ARGF.filename, ARGV]
-#     ARGF.skip
-# }
-# ARGF.lines do |line|
-#   puts ARGF.filename if ARGF.lineno == 1
-#   puts "#{ARGF.lineno}: #{line}"
-# end
-# exit
+if $0 == __FILE__
+else
+#  p o
+end
 
 bar   =  Sprite.new(0, 460, Image.new(100,  20, C_WHITE))
 
@@ -36,11 +25,14 @@ blocks = []
   end
 end
 
-Window.loop do |o|
+Window.create if $0 == __FILE__
 
-#  p o.Scarlet
-#  exit
+loop do
 
+  Window.sync
+  Window.update
+  exit if Input.update
+  exit     if Input.keyPush? K_F9
   bar.x = Input.mouse_pos_x
 
   Sprite.draw(walls)

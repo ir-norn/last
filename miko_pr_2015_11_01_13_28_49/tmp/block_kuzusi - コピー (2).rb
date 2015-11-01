@@ -12,16 +12,8 @@ end
 
 module AnneRose
   class Title
-    def initialize _  , &block
-#      @node_self = _
-      @block = block
-
-    _.Task :menu do |o|
-        o.Code do
-          o.Main :menu_mainloop do |o|
-              @node_self = o
-
-
+    def initialize _
+      @node_self = _
       @font      = Font.new 30
       @node_self.Task :window_update do |o| o.Code do
         Window.sync
@@ -41,17 +33,9 @@ module AnneRose
         @node_self.up.delete              if Input.keyPush? K_9
         @node_self.Scarlet = { :test_data => "test_data_by:#{@node_self.sym}" }
       end end if @node_self.DEBUG_CODE.SCENE_FLAG
+p 555
 
       main
-p 7897878
-      load("./AnneRose_src/title_load.rb")
-      @block.call   if not ARGV.empty?
-
-        o.Code do end
-    end
-  end
-end
-
     end # initialize
     def main
         node_self = @node_self
@@ -63,7 +47,8 @@ end
             end end
           end
         end
-#        load("./AnneRose_src/title_load.rb")
+        p 3
+        load("./block_Merkle_load.rb")
 #         case o.Flandoll.pop
 #         when :menu , :MSG_CODE1
 #           @node_self.Task :menu do |o|

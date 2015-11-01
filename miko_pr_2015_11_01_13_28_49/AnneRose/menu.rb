@@ -1,10 +1,7 @@
 #coding:utf-8
-require "__dev/req"  if $0 ==__FILE__
-
 #
-# self.extend module
-# -- lib --
-##  instance_methods(false)
+require"dxruby"
+
 ##
 module Create_method_print
   def self.extended o
@@ -20,12 +17,14 @@ module Create_method_print
 end
 
 
-module Create_method_delete_lazy
-  def delete_lazy wait
-    Task :lazy_task do | o |
-      o.Code do
-        delete if (wait-=1) < 0
-      end
-    end
-  end
+
+ARGV.replace [ *ARGV , 2 ]
+ARGV.replace [ *ARGV , 4 ]
+p ARGV
+ARGV.clear
+
+
+Window.loop do |o|
+
+
 end

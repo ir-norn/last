@@ -28,12 +28,12 @@ Merkle_tree.new.Main :__merkle_tree_main_top_node do | o |
     end.yield do | ( o , rb ) , &f |
       case o.Flandoll.pop
       when nil then true
-      when -> rb do Merkle_tree.loading o , rb end
+      when -> rb do Merkle_default_class.loading o , rb end
       when -> rb do
           o.Task :"__#{rb}_task" do |o|
             o.Code do
               o.Main :"#{rb}" do |o|
-                Merkle_scene.new o , rb
+                Merkle_default_class.new o , rb
                 o.Code do
                   f[ [o , rb] ]
                 end # code
