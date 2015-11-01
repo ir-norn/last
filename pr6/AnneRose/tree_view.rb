@@ -18,7 +18,7 @@ Window.loop do |o|
       o.sym =~ /^__/ end.flatten
   end
 
-  a.each_slice(2).each.with_index 1 do |( n , v ), i|
+  a.each_slice(2).with_index 1 do |( n , v ), i|
     xw = 15
     yh = 15
     font_hash = o.sym == v.sym ? @font2_hash : nil

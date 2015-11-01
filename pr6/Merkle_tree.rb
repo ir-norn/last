@@ -1,10 +1,6 @@
 #coding:utf-8
-#
-# ----------------------------------------------------------------
-#
-#
 require "__dev/req" if $0 ==__FILE__
-# ----------------------------------------------------------------
+
 class Merkle_tree
   include Merkle_tree_m
   include Merkle_tree_m_ex
@@ -17,7 +13,7 @@ class Merkle_tree
   end
 end
 
-Merkle_tree.new.Main :__merkle_tree_main_top_node do | o |
+Merkle_tree.new.Main :__merkle_tree_main_top_node do |o|
   o.Code do
     if o.task.empty? then o.Flandoll << :tree_view
     end
@@ -26,7 +22,7 @@ Merkle_tree.new.Main :__merkle_tree_main_top_node do | o |
           lambda{|x|lambda{|y| f[x[x]] [y]}}]
       end[ lambda{|f|lambda{|n| b[n , &f] }}]
     end.yield do | ( o , rb ) , &f |
-      case o.Flandoll.pop
+      case o.Flandoll.shift
       when nil then true
       when -> rb do Merkle_tree.loading o , rb end
       when -> rb do

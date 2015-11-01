@@ -1,5 +1,5 @@
 #coding:utf-8
-#require "__dev/req" if $0 ==__FILE__
+require "__dev/req" if $0 ==__FILE__
 require"dxruby"
 if $0 == __FILE__
   ARGV.replace [ 100 , 300 , 3 , 0 ]
@@ -19,4 +19,7 @@ Window.loop do |o|
   y -= speed
   Window.draw_font(x,y,"＊",Font.default)
 
+  if y < 0
+    o.delete
+  end
 end

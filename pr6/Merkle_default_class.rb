@@ -1,11 +1,18 @@
 #coding:utf-8
 require "__dev/req"  if $0 ==__FILE__
 
+#
+# object_ 生成ノードのほうには、BUGあり
+# load fileの中のローカル変数が不明なタイミングでnilになったり色々
+#
+
 class Merkle_tree
   def self.loading o , rb
     if rb =~ /object_/
-      # Merkle_object.new o , "./user/#{rb}"
-      Merkle_object.new o , rb
+      o.Task :"__#{rb}_task" do |o|
+        Merkle_object.new o , rb
+        o.Code do end
+      end
       return true
     end
     o.Task :"__#{rb}_task_loading" do |o|
@@ -47,6 +54,7 @@ module Merkle_node_m
     __Window_refine_do
       case ("#{@load_src}.rb")
       when -> rb {  File.exists?(rb) && load(rb , true) }
+#      when -> rb {  File.exists?(rb) && eval(open(rb).read) }
       else
         @node_self.Task :__load_src_error do |o| o.Code do
           Window.drawFont(50,  60, "--404 rb file not found--" ,  Font.default)
@@ -62,7 +70,7 @@ class Merkle_scene
   def initialize _ , name
     super
     __scene_code
-  end # initialize
+  end
   def __scene_code
     @node_self.Task :__window_update do |o| o.Code do
       Window.sync
