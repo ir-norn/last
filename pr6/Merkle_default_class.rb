@@ -47,7 +47,7 @@ module Merkle_node_m
   def __Window_refine_end
     Window.class_eval do
       def self.loop ; # Window.create rescue p "Window is created"
-        while true ; Window.sync ; Window.update ; yield end end end
+        while true ; Window.sync ; Window.update ; exit if Input.update ; yield end end end
   end
   def main
     #--------- メソッド内でrefine使えない感じなので普通にオーバーライド ------------
@@ -88,7 +88,7 @@ class Merkle_scene
       @node_self.Flandoll << :menu          if Input.keyPush? K_2
       @node_self.Flandoll << :tree_view     if Input.keyPush? K_3
       @node_self.Flandoll << :object_user0  if Input.keyPush? K_4
-      ARGV.replace [ 100 , 200 ]   if Input.keyPush? K_4
+      ARGV.replace [ [ 100 , 200 ] , *ARGV ]   if Input.keyPush? K_4
 
       @node_self.Scarlet = { :test_data => "test_data_by:#{@node_self.sym}" }
     end end if @node_self.DEBUG_CODE.SCENE_FLAG

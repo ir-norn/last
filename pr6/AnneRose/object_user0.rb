@@ -1,13 +1,11 @@
 #coding:utf-8
-#require "__dev/req" if $0 ==__FILE__
+# require "__dev/req" if $0 ==__FILE__
 require"dxruby"
 if $0 == __FILE__
-  ARGV.replace [ 200 , 200 ]
+  ARGV.replace [ [ 200 , 200 ] , *ARGV ]
 end
 
-x = ARGV[0]
-y = ARGV[1]
-ARGV.clear
+x , y = ARGV.shift
 
 Window.loop do |o|
   exit if Input.keyPush? K_F9
@@ -19,7 +17,12 @@ Window.loop do |o|
 
   if Input.key_push? K_Z
     o.up.Flandoll << :object_user_shot0
-    ARGV.replace [ x , y , 3 , 0 ]
+    ARGV.replace [ [ 350 , 300 ] , *ARGV  ]
+  end
+
+  if Input.key_push? K_Z
+    o.up.Flandoll << :object_user_shot0
+    ARGV.replace [ [ 300 , 300 ] , *ARGV  ]
   end
 
 end

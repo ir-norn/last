@@ -37,7 +37,7 @@ Merkle_tree.new.Main :__merkle_tree_main_top_node do |o|
             end # co
           end # tas
         end #lm
-      end # case
+      end # while not o.Flandoll.empty? # case
     end[ [ o , nil ] ] # recursion
   end # code do
 end # main
