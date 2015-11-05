@@ -1,21 +1,10 @@
 #coding:utf-8
-require "__dev/req" if $0 ==__FILE__
+#require "__dev/req" if $0 ==__FILE__
 require"dxruby"
 if $0 == __FILE__
-#  ARGV.replace [ 100 , 300 , 3 , 0 ]
+  ARGV.replace [ [100 , 300 , 3 , 0] , *ARGV ]
 end
-p ARGV
-#exit
-
-# x     = ARGV[0]
-# y     = ARGV[1]
-# speed = ARGV[2]
-# angle = ARGV[3]
-# ARGV.clear
-#if ARGV.last.is_a?(Array)
-  x, y = ARGV.pop
-#end
-speed  = 4
+x, y , speed = ARGV.pop
 
 Window.loop do |o|
   exit if Input.keyPush? K_F9
