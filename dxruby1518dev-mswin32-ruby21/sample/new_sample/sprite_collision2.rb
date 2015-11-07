@@ -1,7 +1,7 @@
 #!ruby -Ks
 require "dxruby"
 
-# ‚µ‚©‚­
+# ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 class Box < Sprite
   def initialize(size)
     self.x = rand(639-size)
@@ -11,7 +11,7 @@ class Box < Sprite
   end
 end
 
-# ‚Ü‚é
+# ï¿½Ü‚ï¿½
 class Circle < Sprite
   def initialize(size)
     self.x = rand(639-size*2)
@@ -21,7 +21,7 @@ class Circle < Sprite
   end
 end
 
-# ‚³‚ñ‚©‚­
+# ï¿½ï¿½ï¿½ñ‚©‚ï¿½
 class Triangle < Sprite
   def initialize(size)
     self.x = rand(639-size)
@@ -33,28 +33,28 @@ end
 
 font = Font.new(24)
 
-# ‚¢‚Üƒ}ƒEƒX‚Å’Í‚ñ‚Å‚éƒIƒuƒWƒFƒNƒg
+# ï¿½ï¿½ï¿½Üƒ}ï¿½Eï¿½Xï¿½Å’Í‚ï¿½ï¿½Å‚ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½g
 item = nil
 
-# ƒIƒuƒWƒFƒNƒg”z—ñ
+# ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½zï¿½ï¿½
 arr = [Circle.new(20), Circle.new(40),
        Triangle.new(60), Triangle.new(100),
        Box.new(40), Box.new(80)]
 
-# ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ÌÕ“Ë”»’è—pSprite
+# ï¿½}ï¿½Eï¿½Xï¿½Jï¿½[ï¿½\ï¿½ï¿½ï¿½ÌÕ“Ë”ï¿½ï¿½ï¿½ï¿½pSprite
 mouse = Sprite.new
 mouse.collision = [0,0]
 
-# ƒƒCƒ“ƒ‹[ƒv
+# ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½v
 Window.loop do
   oldx, oldy = mouse.x, mouse.y
   mouse.x, mouse.y = Input.mouse_pos_x, Input.mouse_pos_y
 
-  # ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½‚ç”»’è
+  # ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç”»ï¿½ï¿½
   if Input.mouse_push?(M_LBUTTON) or Input.mouse_push?(M_RBUTTON)
     arr.each_with_index do |obj, i|
       if mouse === obj
-        # ƒIƒuƒWƒFƒNƒg‚ðƒNƒŠƒbƒN‚Å‚«‚½‚ç•À‚×‘Ö‚¦‚ÆitemÝ’è
+        # ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½Å‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×‘Ö‚ï¿½ï¿½ï¿½itemï¿½Ý’ï¿½
         arr.delete_at(i)
         arr.unshift(obj)
         item = obj
@@ -63,7 +63,7 @@ Window.loop do
     end
   end
 
-  # ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚Ä‚¢‚éŠÔ‚Ìˆ—
+  # ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½Ô‚Ìï¿½ï¿½ï¿½
   if Input.mouse_down?(M_RBUTTON) or Input.mouse_down?(M_LBUTTON)
     if item then
       if Input.mouse_down?(M_RBUTTON)
@@ -75,16 +75,16 @@ Window.loop do
       end
     end
   else
-    # ƒ{ƒ^ƒ“‚ª—£‚³‚ê‚½‚çƒIƒuƒWƒFƒNƒg‚ð‰ð•ú
+    # ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     item = nil
   end
 
-  # ƒIƒuƒWƒFƒNƒg“¯Žm‚Ì”»’è
+  # ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½mï¿½Ì”ï¿½ï¿½ï¿½
   if Sprite.check(arr) then
     Window.draw_font(0, 0, "hit!", font)
   end
 
-  # •`‰æ
+  # ï¿½`ï¿½ï¿½
   arr.reverse.each do |obj|
     obj.draw
   end

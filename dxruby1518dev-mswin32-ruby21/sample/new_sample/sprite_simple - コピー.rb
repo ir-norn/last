@@ -33,11 +33,9 @@ class Ruby < Sprite
     end
   end
 end
-mouse = Sprite.new
-mouse.collision = [0,0]
 
 # Sprite �I�u�W�F�N�g�̔z���𐶐������B
-sprites = Array.new(5000){ Ruby.new }
+sprites = Array.new(1000){ Ruby.new }
 
 font = Font.new(32)
 
@@ -53,10 +51,6 @@ Window.fps = 60
 Window.loop do
   # ESC �L�[�������ꂽ�ꍇ�I�������B
   break if Input.keyPush?(K_ESCAPE)
-  mouse.x, mouse.y = Input.mouse_pos_x, Input.mouse_pos_y
- mouse.check(sprites).each do |t|
-   p t
- end
 
   Sprite.update(sprites)
   Sprite.draw(sprites)
