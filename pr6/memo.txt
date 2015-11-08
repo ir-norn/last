@@ -1,24 +1,16 @@
 
 
-22:46 2015/11/01
+Merkle_tree.DEBUG_NODE o
 
-シーン間のデータやり取りは ARGVを使う
+class Merkle_tree
+  def self.DEBUG_NODE o
+   o.Task :__DEGUB_NODE do |o| o.Code do
+      Window.sync ; Window.update ; exit if Input.update ; exit if Input.keyPush? K_F9
+#      Window.draw_font 10,100, "DEBUG_NODE  F1 RE START" ,Font.default
+      if Input.keyPush?(K_F1) || o.TOP_NODE.task.size==1 and o.TOP_NODE.Flandoll then
+        o.TOP_NODE.Flandoll.resume :tree_view  end end end
+  end # def
+end # end-class
 
-問題点として、１フレームに複数のノードを作る場合にARGVが埋まってる
-ノード ＝ ファイル　
-なので
-
-ARGV.extend Module.new { attr_accessor :Remilia }
-ARGV.Remilia.extend　＜＜ method_missing
-ARGV.Remilia.FILENAME = Hash
-
-１フレームに同じファイル名のノードを複数作る場合の
-引数フォーマットはとりあえず
-{ :x => 10 , :hash => { :x => 20 , :hash => { :x => 30 } } }
-
-再帰で取り出して読み捨てていく
-HashじゃなくてArrayでも良い
-
--------------------------------------------------------------------
 
 

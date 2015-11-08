@@ -10,5 +10,5 @@ require "dxruby"
 # --- project src ---
 require "./conf"
 # --- run ---
-require "./Merkle_default_class"
-require "./Merkle_tree"
+require "./project/Merkle_tree_module"
+require "./project/Merkle_tree"

@@ -5,9 +5,10 @@ require "__dev/req" if $0 ==__FILE__
 
 module Merkle_tree_m_ex
   def TOP_NODE
-    return up.up.TOP_NODE if up.up
+    return up.TOP_NODE if up.sym
     self
   rescue
+    p :TOP_NODE_rescue
     self
   end
   def TOP_SYM
@@ -15,8 +16,8 @@ module Merkle_tree_m_ex
   end
   def delete
     if up
-      up.task.delete self
       task.clear
+      up.task.delete self
     end
   end
 # selfより上の一番近い nodeを返す

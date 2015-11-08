@@ -511,8 +511,6 @@ end
 
 
 
-__END__
-
 
 
 p Yakumo_yukari.ch( 3 ).take(10)
@@ -540,7 +538,6 @@ p y.take(20)
 
 
 
-exit
 
 y = Yakumo_yukari.ch_next 5 , ["a","b"] , [1,2,3]
 p y.call
@@ -556,7 +553,6 @@ p Yakumo_yukari.ch(4,"a","b").take(10)
 
 
 
-__END__
 
 
 puts

@@ -22,9 +22,11 @@ Merkle_tree.new.Main :__merkle_tree_main_top_node do |o|
           lambda{|x|lambda{|y| f[x[x]] [y]}}]
       end[ lambda{|f|lambda{|n| b[n , &f] }}]
     end.yield do | ( o , rb ) , &f |
+      p  o.Flandoll if  not o.Flandoll.empty?
       case o.Flandoll.shift
       when nil then true
-      when -> rb do Merkle_tree.loading o , rb end
+      when -> rb do Merkle_tree.loading o , rb , f end
+#      when -> rb do end
       when -> rb do
           o.Task :"__#{rb}_task" do |o|
             o.Code do

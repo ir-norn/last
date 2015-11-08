@@ -36,7 +36,7 @@ blocks = []
   end
 end
 
-Window.loop do |o|
+Window.loop do | o , node_self |
 
 #  p o.Scarlet
 #  exit

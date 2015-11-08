@@ -61,7 +61,7 @@ mouse.collision = [0,0]
 
 
 # --------------------------------------------------------------------------------------
-Window.loop do |o|
+Window.loop do | o , node_self |
   exit if Input.keyPush? K_F9
   Sprite.update [ s , a , 3]
   Sprite.draw [ s , a]
