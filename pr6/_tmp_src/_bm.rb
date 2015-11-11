@@ -5,17 +5,19 @@ a=->{
   str = "xxx"
   "_#{str}_"
 }
+B = 30
+e = 0
 b=->{
-  str = "xxx"
-  :"_#{str}_"
+  e = (e+1)%B
 }
+q=(Array 0..B).cycle
 c=->{
-  str = :xxx
-  "_#{str}_"
+  q.next
 }
+w=0
 d=->{
-  str = :xxx
-  :"_#{str}_"
+  w += 1
+  w = 0 if B > w
 }
 N = 1000000
 Benchmark.bm do |q|

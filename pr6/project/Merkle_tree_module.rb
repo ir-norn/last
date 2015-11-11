@@ -55,7 +55,7 @@ module Merkle_node_m
         while true ; Window.sync ; Window.update ; exit if Input.update ; yield end end end
   end
   def main
-    #--------- メソッド内でrefine使えない感じなので普通にオーバーライド ------------
+    #--------- Window オーバーライド ------------
     __Window_refine_do
       case ("#{@load_src}.rb")
       when -> rb {  File.exists?(rb) && load(rb , true) }
@@ -83,7 +83,9 @@ class Merkle_scene
       exit if Input.update
     end end
     @node_self.Task :__debug_code do |o| o.Code do
-      if Input.keyPush? K_F1
+      if Input.keyPush? K_F2
+        @node_self.Flandoll << :title
+        @node_self.Flandoll << :tree_view
 #        o.TOP_NODE.task.empty? o.Flandoll << :tree_view
       end
 
@@ -93,7 +95,6 @@ class Merkle_scene
       exit                            if Input.keyPush? K_F9
       @node_self.DEBUG_CODE.SCREENSHOT_CALL if Input.keyPush? K_F12
       @node_self.delete                     if Input.keyPush? K_9
-
       @node_self.Flandoll << :title         if Input.keyPush? K_1
       @node_self.Flandoll << :menu          if Input.keyPush? K_2
       @node_self.Flandoll << :tree_view     if Input.keyPush? K_3

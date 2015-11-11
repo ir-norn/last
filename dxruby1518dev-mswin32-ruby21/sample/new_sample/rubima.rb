@@ -1,8 +1,8 @@
 #!ruby -Ks
-# ‚é‚Ñ‚ÜƒTƒ“ƒvƒ‹ƒQ[ƒ€
+# ï¿½ï¿½ï¿½Ñ‚ÜƒTï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Qï¿½[ï¿½ï¿½
 require 'dxruby'
 
-# ”wŒi•`‰æ
+# ï¿½wï¿½iï¿½`ï¿½ï¿½
 class Map
   @@map = [[0, 0, 0, 0, 0, 0, 0, 0, 29, 11, 11, 30, 34, 66, 67, 67],
            [0, 0, 0, 24, 25, 26, 0, 0, 29, 11, 11, 39, 40, 6, 34, 34],
@@ -40,29 +40,29 @@ class Map
   y = temp.height / 32
   @@images = temp.slice_tiles(x, y, true)
 
-  # ‰Šú‰»
+  # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   def initialize
-    @y = 14 * 32    # ƒ}ƒbƒv‚Ì‰ŠúˆÊ’u
-    @count = 0      # 1ƒ`ƒbƒv‚Ô‚ñˆÚ“®‚·‚éƒtƒŒ[ƒ€”
+    @y = 14 * 32    # ï¿½}ï¿½bï¿½vï¿½Ìï¿½ï¿½ï¿½ï¿½Ê’u
+    @count = 0      # 1ï¿½`ï¿½bï¿½vï¿½Ô‚ï¿½ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
   end
 
-  # ƒ}ƒbƒvXV
+  # ï¿½}ï¿½bï¿½vï¿½Xï¿½V
   def update
     @count -= 1
   end
 
-  # ƒ}ƒbƒv•`‰æ
+  # ï¿½}ï¿½bï¿½vï¿½`ï¿½ï¿½
   def draw
     $rt.draw_tile(0, 0, @@map, @@images, 0, @y + @count, 16, 16, 0)
   end
 end
 
-# “G‚P‚Ì‚â‚ç‚êˆ—
+# ï¿½Gï¿½Pï¿½Ì‚ï¿½ï¿½ï¿½ï¿½êˆï¿½ï¿½
 class Enemy1bomb < Sprite
   @@image0 = Image.load_tiles("image/enemy1bomb.png", 4, 2, true)
   @@image1 = @@image0.map {|image| image.flush([128, 0, 0, 0])}
 
-  # ƒCƒ“ƒXƒ^ƒ“ƒX‰Šú‰»
+  # ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   def initialize(x, y)
     super(x, y)
     self.z = 10
@@ -70,7 +70,7 @@ class Enemy1bomb < Sprite
     @count = 0
   end
 
-  # XV
+  # ï¿½Xï¿½V
   def update
     self.y += 1.5
     @count += 1
@@ -79,7 +79,7 @@ class Enemy1bomb < Sprite
     end
   end
 
-  # •`‰æ
+  # ï¿½`ï¿½ï¿½
   def draw
     self.image = @@image0[@count / 5]
     super
@@ -87,12 +87,12 @@ class Enemy1bomb < Sprite
   end
 end
 
-# “G‚Q‚Ì‚â‚ç‚êˆ—
+# ï¿½Gï¿½Qï¿½Ì‚ï¿½ï¿½ï¿½ï¿½êˆï¿½ï¿½
 class Enemy2bomb < Sprite
   @@image0 = Image.load_tiles("image/enemy2bomb.png", 4, 2, true)
   @@image1 = @@image0.map {|image| image.flush([128, 0, 0, 0])}
 
-  # ƒCƒ“ƒXƒ^ƒ“ƒX‰Šú‰»
+  # ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   def initialize(x, y)
     super(x, y)
     self.z = 10
@@ -100,7 +100,7 @@ class Enemy2bomb < Sprite
     @count = 0
   end
 
-  # XV
+  # ï¿½Xï¿½V
   def update
     self.y += 0.5
     @count += 1
@@ -109,7 +109,7 @@ class Enemy2bomb < Sprite
     end
   end
 
-  # •`‰æ
+  # ï¿½`ï¿½ï¿½
   def draw
     self.image = @@image0[@count / 5]
     super
@@ -117,11 +117,11 @@ class Enemy2bomb < Sprite
   end
 end
 
-# “G‚P—pƒVƒ‡ƒbƒgƒqƒbƒgŒã
+# ï¿½Gï¿½Pï¿½pï¿½Vï¿½ï¿½ï¿½bï¿½gï¿½qï¿½bï¿½gï¿½ï¿½
 class EnemyShot1Hit < Sprite
   @@image = Image.load("image/enemyshot1.png")
 
-  # ƒCƒ“ƒXƒ^ƒ“ƒX‰Šú‰»
+  # ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   def initialize(x, y, angle)
     super(x, y, @@image)
     self.z = 20
@@ -132,7 +132,7 @@ class EnemyShot1Hit < Sprite
     @dy = Math.sin((temp2) / 180.0 * Math::PI)
   end
 
-  # XV
+  # ï¿½Xï¿½V
   def update
     self.x += @dx
     self.y += @dy
@@ -144,7 +144,7 @@ class EnemyShot1Hit < Sprite
   end
 end
 
-# “G‚P—pƒVƒ‡ƒbƒg
+# ï¿½Gï¿½Pï¿½pï¿½Vï¿½ï¿½ï¿½bï¿½g
 class EnemyShot1 < Sprite
   @@image = Image.load("image/enemyshot1.png")
   @@sound = Array.new(3) do
@@ -157,7 +157,7 @@ class EnemyShot1 < Sprite
   @@soundnumber = 0
   @@soundflag = false
 
-  # ƒCƒ“ƒXƒ^ƒ“ƒX‰Šú‰»
+  # ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   def initialize(x, y, angle)
     super(x, y, @@image)
     self.z = 20
@@ -168,7 +168,7 @@ class EnemyShot1 < Sprite
     @shot_angle = angle
   end
 
-  # XV
+  # ï¿½Xï¿½V
   def update
     self.x += @dx
     self.y += @dy
@@ -187,24 +187,24 @@ class EnemyShot1 < Sprite
   end
 end
 
-# “G‚Q—pƒVƒ‡ƒbƒgƒqƒbƒgŒã
+# ï¿½Gï¿½Qï¿½pï¿½Vï¿½ï¿½ï¿½bï¿½gï¿½qï¿½bï¿½gï¿½ï¿½
 class EnemyShot2Hit < Sprite
   @@image = Image.load("image/enemyshot2.png")
 
-  # ƒCƒ“ƒXƒ^ƒ“ƒX‰Šú‰»
+  # ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   def initialize(x, y, angle)
     super(x, y, @@image)
     self.z = 20
-    self.alpha = 255    # ƒAƒ‹ƒtƒ@’l
+    self.alpha = 255    # ï¿½Aï¿½ï¿½ï¿½tï¿½@ï¿½l
     self.target = $rt
     temp2 = angle + 180
     @dx = Math.cos((temp2) / 180.0 * Math::PI) * 3.5
     @dy = Math.sin((temp2) / 180.0 * Math::PI) * 3.5
   end
 
-  # XV
+  # ï¿½Xï¿½V
   def update
-    # ˆÚ“®
+    # ï¿½Ú“ï¿½
     self.x += @dx
     self.y += @dy
     self.alpha -= 10
@@ -214,7 +214,7 @@ class EnemyShot2Hit < Sprite
   end
 end
 
-# “G‚Q—pƒVƒ‡ƒbƒg
+# ï¿½Gï¿½Qï¿½pï¿½Vï¿½ï¿½ï¿½bï¿½g
 class EnemyShot2 < Sprite
   @@image = Image.load("image/enemyshot2.png")
   v = 60
@@ -228,7 +228,7 @@ class EnemyShot2 < Sprite
   @@soundnumber = 0
   @@soundflag = false
 
-  # ƒCƒ“ƒXƒ^ƒ“ƒX‰Šú‰»
+  # ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   def initialize(x, y, angle)
     super(x, y, @@image)
     self.z = 20
@@ -239,15 +239,15 @@ class EnemyShot2 < Sprite
     @shot_angle = angle
   end
 
-  # XV
+  # ï¿½Xï¿½V
   def update
-    # ˆÚ“®
+    # ï¿½Ú“ï¿½
     self.x += @dx
     self.y += @dy
     @@soundflag = false
   end
 
-  # ©‹@‚É“–‚½‚Á‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éƒƒ\ƒbƒh
+  # ï¿½ï¿½ï¿½@ï¿½É“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÉŒÄ‚Î‚ï¿½ï¿½éƒï¿½\ï¿½bï¿½h
   def shot(obj)
     self.vanish
     $etc_objects << EnemyShot2Hit.new(self.x, self.y, @shot_angle)
@@ -260,15 +260,15 @@ class EnemyShot2 < Sprite
   end
 end
 
-# “G‚P
+# ï¿½Gï¿½P
 class Enemy1 < Sprite
-  # ‰æ‘œ“Ç‚İ‚İ•ƒtƒ‰ƒbƒVƒ…/‰e‰æ‘œ¶¬
-  image0 = Image.load_tiles("image/enemy1.png", 4, 1, true)  # “Ç‚İ‚İ
+  # ï¿½æ‘œï¿½Ç‚İï¿½ï¿½İï¿½ï¿½tï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½/ï¿½eï¿½æ‘œï¿½ï¿½ï¿½ï¿½
+  image0 = Image.load_tiles("image/enemy1.png", 4, 1, true)  # ï¿½Ç‚İï¿½ï¿½ï¿½
   image1 = image0.map {|image| image.flush([255, 200, 200, 200])}
   image2 = image0.map {|image| image.flush([128, 0, 0, 0])}
   @@image = [image0, image1, image2]
 
-  # SoundEffect‚Å‚â‚ç‚êŒø‰Ê‰¹¶¬B‚R‚Â‚Ü‚Å‚Ì‘½dÄ¶‚ª‚Å‚«‚é‚æ‚¤”z—ñ‰»B
+  # SoundEffectï¿½Å‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Bï¿½Rï¿½Â‚Ü‚Å‚Ì‘ï¿½ï¿½dï¿½Äï¿½ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½ï¿½æ‚¤ï¿½zï¿½ñ‰»B
   @@sound = Array.new(3) do
     v = 60
     f = 500
@@ -281,57 +281,57 @@ class Enemy1 < Sprite
   @@soundnumber = 0
   @@soundflag = false
 
-  # ƒCƒ“ƒXƒ^ƒ“ƒX‰Šú‰»
+  # ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   def initialize(x, y)
     super(x, y)
     self.z = 10
-    self.collision = [0, 0, 47, 47] # Õ“Ë”»’è
+    self.collision = [0, 0, 47, 47] # ï¿½Õ“Ë”ï¿½ï¿½ï¿½
     self.target = $rt
-    @hp = 15         # ƒqƒbƒgƒ|ƒCƒ“ƒg
-    @shotcount = 0   # ’e‚ğŒ‚‚ÂŠÔŠu‚ğ‘ª‚éƒJƒEƒ“ƒ^
-    @imagenumber = 0 # ”í’e‚µ‚½‚ç1(ƒtƒ‰ƒbƒVƒ…‚ğ•\‚·)
-    @animecount = 0  # ƒAƒjƒ[ƒVƒ‡ƒ“—pƒJƒEƒ“ƒ^
+    @hp = 15         # ï¿½qï¿½bï¿½gï¿½|ï¿½Cï¿½ï¿½ï¿½g
+    @shotcount = 0   # ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ÂŠÔŠuï¿½ğ‘ª‚ï¿½ï¿½Jï¿½Eï¿½ï¿½ï¿½^
+    @imagenumber = 0 # ï¿½ï¿½ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1(ï¿½tï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½)
+    @animecount = 0  # ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½pï¿½Jï¿½Eï¿½ï¿½ï¿½^
   end
 
-  # XV
+  # ï¿½Xï¿½V
   def update
-    # ˆÚ“®
+    # ï¿½Ú“ï¿½
     self.y += 2
 
-    # ’e‚ğŒ‚‚Â”»’è
+    # ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½Â”ï¿½ï¿½ï¿½
     @shotcount += 1
     if @shotcount > 40
-      # Šp“xŒvZ
+      # ï¿½pï¿½xï¿½vï¿½Z
       angle = (Math.atan2($myship.y + 16 - (self.y + 24 + 8), $myship.x + 16 - (self.x + 16 + 8)) / Math::PI * 180)
 
-      # ’e‚ğŒ‚‚Â
+      # ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
       $enemy_shots << EnemyShot1.new(self.x + 16, self.y + 24, angle)
 
-      # ƒJƒEƒ“ƒg‰Šú‰»
+      # ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
       @shotcount = 0
     end
 
-    # ‚Æ‚è‚ ‚¸–ˆƒtƒŒ[ƒ€Aƒtƒ‰ƒbƒVƒ…‚µ‚Ä‚¢‚È‚¢ó‘Ô‚É‚·‚é
+    # ï¿½Æ‚è‚ ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Aï¿½tï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½Ô‚É‚ï¿½ï¿½ï¿½
     @imagenumber = 0
 
-    # ƒAƒjƒ[ƒVƒ‡ƒ“—pƒJƒEƒ“ƒg
+    # ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½pï¿½Jï¿½Eï¿½ï¿½ï¿½g
     @animecount += 1
     @animecount -= 80 if @animecount >= 80
 
     @@soundflag = false
   end
 
-  # ©‹@ƒVƒ‡ƒbƒg‚É“–‚½‚Á‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éƒƒ\ƒbƒh
+  # ï¿½ï¿½ï¿½@ï¿½Vï¿½ï¿½ï¿½bï¿½gï¿½É“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÉŒÄ‚Î‚ï¿½ï¿½éƒï¿½\ï¿½bï¿½h
   def hit(obj)
-    # HP‚ğŒ¸‚ç‚·
+    # HPï¿½ï¿½ï¿½ï¿½ï¿½ç‚·
     @hp = @hp - obj.damage
 
-    # ‚â‚ç‚êˆ—
+    # ï¿½ï¿½ï¿½ï¿½ï¿½êˆï¿½ï¿½
     if @hp <= 0
       self.vanish
       $etc_objects << Enemy1bomb.new(self.x, self.y)
 
-      # ‚â‚ç‚êŒø‰Ê‰¹‚Ì‘½dÄ¶
+      # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê‰ï¿½ï¿½Ì‘ï¿½ï¿½dï¿½Äï¿½
       if @@soundflag == false
         @@sound[@@soundnumber].play
         @@soundnumber += 1
@@ -340,7 +340,7 @@ class Enemy1 < Sprite
       end
     end
 
-    # ƒtƒ‰ƒbƒVƒ…’†‚É‚·‚é
+    # ï¿½tï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
     @imagenumber = 1
   end
 
@@ -351,10 +351,10 @@ class Enemy1 < Sprite
   end
 end
 
-# “G‚Q
+# ï¿½Gï¿½Q
 class Enemy2 < Sprite
-  # ‰æ‘œ“Ç‚İ‚İ•ƒtƒ‰ƒbƒVƒ…/‰e‰æ‘œ¶¬
-  image0 = Image.load_tiles("image/enemy2.png", 4, 1, true)  # “Ç‚İ‚İ
+  # ï¿½æ‘œï¿½Ç‚İï¿½ï¿½İï¿½ï¿½tï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½/ï¿½eï¿½æ‘œï¿½ï¿½ï¿½ï¿½
+  image0 = Image.load_tiles("image/enemy2.png", 4, 1, true)  # ï¿½Ç‚İï¿½ï¿½ï¿½
   image1 = image0.map {|image| image.flush([255, 200, 200, 200])}
   image2 = image0.map {|image| image.flush([128, 0, 0, 0])}
   @@image = [image0, image1, image2]
@@ -364,146 +364,146 @@ class Enemy2 < Sprite
     [rand(300), v]
   end
 
-  # ƒCƒ“ƒXƒ^ƒ“ƒX‰Šú‰»
+  # ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   def initialize(x, y)
     super(x, y)
     self.z = 10
-    self.collision = [0, 0, 127, 63] # Õ“Ë”»’è
+    self.collision = [0, 0, 127, 63] # ï¿½Õ“Ë”ï¿½ï¿½ï¿½
     self.target = $rt
-    @dy = 10 # cˆÚ“®—Ê
-    @hp = 400 # ƒqƒbƒgƒ|ƒCƒ“ƒg
-    @shotcount = 0   # ’e‚ğŒ‚‚ÂŠÔŠu‚ğ‘ª‚éƒJƒEƒ“ƒ^
-    @imagenumber = 0 # ”í’e‚µ‚½‚ç1(ƒtƒ‰ƒbƒVƒ…‚ğ•\‚·)
-    @animecount = 0  # ƒAƒjƒ[ƒVƒ‡ƒ“—pƒJƒEƒ“ƒ^
+    @dy = 10 # ï¿½cï¿½Ú“ï¿½ï¿½ï¿½
+    @hp = 400 # ï¿½qï¿½bï¿½gï¿½|ï¿½Cï¿½ï¿½ï¿½g
+    @shotcount = 0   # ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ÂŠÔŠuï¿½ğ‘ª‚ï¿½ï¿½Jï¿½Eï¿½ï¿½ï¿½^
+    @imagenumber = 0 # ï¿½ï¿½ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1(ï¿½tï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½)
+    @animecount = 0  # ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½pï¿½Jï¿½Eï¿½ï¿½ï¿½^
   end
 
-  # XV
+  # ï¿½Xï¿½V
   def update
-    # ˆÚ“®
+    # ï¿½Ú“ï¿½
     self.y += @dy
 
-    if @dy > 0         # ‰º‚ÉˆÚ“®’†
-      @dy -= 0.3         # Œ¸‘¬
-    else               # ˆÚ“®Š®—¹‚µ‚Ä‚¢‚½‚ç
-      @shotcount += 1    # ƒVƒ‡ƒbƒgƒJƒEƒ“ƒg‚ğ‘«‚µ‚Ä
-      if @shotcount > 60 # ƒJƒEƒ“ƒg‚ª60‚ğ’´‚¦‚½‚ç’e‚ğŒ‚‚Â
-        # Šp“xŒvZ
+    if @dy > 0         # ï¿½ï¿½ï¿½ÉˆÚ“ï¿½ï¿½ï¿½
+      @dy -= 0.3         # ï¿½ï¿½ï¿½ï¿½
+    else               # ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½
+      @shotcount += 1    # ï¿½Vï¿½ï¿½ï¿½bï¿½gï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½ğ‘«‚ï¿½ï¿½ï¿½
+      if @shotcount > 60 # ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½ï¿½60ï¿½ğ’´‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        # ï¿½pï¿½xï¿½vï¿½Z
         angle = (Math.atan2($myship.y + 16 - (self.y + 40 + 12), $myship.x + 16 - (self.x + 56 + 12)) / Math::PI * 180)
-        # 5”­Œ‚‚Â
+        # 5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         $enemy_shots << EnemyShot2.new(self.x + 56, self.y + 40, angle - 45)
         $enemy_shots << EnemyShot2.new(self.x + 56, self.y + 40, angle - 22.5)
         $enemy_shots << EnemyShot2.new(self.x + 56, self.y + 40, angle)
         $enemy_shots << EnemyShot2.new(self.x + 56, self.y + 40, angle + 22.5)
         $enemy_shots << EnemyShot2.new(self.x + 56, self.y + 40, angle + 45)
-        # ƒJƒEƒ“ƒg‰Šú‰»
+        # ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         @shotcount = 0
       end
     end
 
-    # ‚Æ‚è‚ ‚¸–ˆƒtƒŒ[ƒ€Aƒtƒ‰ƒbƒVƒ…‚µ‚Ä‚¢‚È‚¢ó‘Ô‚É‚·‚é
+    # ï¿½Æ‚è‚ ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Aï¿½tï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½Ô‚É‚ï¿½ï¿½ï¿½
     @imagenumber = 0
 
-    # ƒAƒjƒ[ƒVƒ‡ƒ“—pƒJƒEƒ“ƒg
+    # ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½pï¿½Jï¿½Eï¿½ï¿½ï¿½g
     @animecount += 1
     @animecount -= 40 if @animecount >= 40
   end
 
-  # ©‹@ƒVƒ‡ƒbƒg‚ª“–‚½‚Á‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éƒƒ\ƒbƒh
+  # ï¿½ï¿½ï¿½@ï¿½Vï¿½ï¿½ï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÉŒÄ‚Î‚ï¿½ï¿½éƒï¿½\ï¿½bï¿½h
   def hit(obj)
-    # HP‚ğŒ¸‚ç‚·
+    # HPï¿½ï¿½ï¿½ï¿½ï¿½ç‚·
     @hp = @hp - obj.damage
 
-    # ‚â‚ç‚êˆ—
+    # ï¿½ï¿½ï¿½ï¿½ï¿½êˆï¿½ï¿½
     if @hp <= 0
       self.vanish
       $etc_objects << Enemy2bomb.new(self.x, self.y)
       @@sound.play
     end
 
-    # ƒtƒ‰ƒbƒVƒ…’†‚É‚·‚é
+    # ï¿½tï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
     @imagenumber = 1
   end
 
-  # •`‰æ
+  # ï¿½`ï¿½ï¿½
   def draw
     self.image = @@image[@imagenumber][@animecount / 10]
     super
-    $rt.draw(self.x-16, self.y-16, @@image[2][@animecount / 10], 1)       # ‰e
+    $rt.draw(self.x-16, self.y-16, @@image[2][@animecount / 10], 1)       # ï¿½e
   end
 end
 
-# ©‹@—pƒVƒ‡ƒbƒg
+# ï¿½ï¿½ï¿½@ï¿½pï¿½Vï¿½ï¿½ï¿½bï¿½g
 class MyShot < Sprite
   @@image = Image.load("image/myshot.png")
   attr_accessor :damage
 
-  # ƒCƒ“ƒXƒ^ƒ“ƒX‰Šú‰»
+  # ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   def initialize(x, y, angle)
     super(x, y, @@image)
     self.z = 15
-    self.collision = [0, 0, 31, 31] # Õ“Ë”»’è
-    self.angle = angle + 90 # Šp“x
+    self.collision = [0, 0, 31, 31] # ï¿½Õ“Ë”ï¿½ï¿½ï¿½
+    self.angle = angle + 90 # ï¿½pï¿½x
     self.target = $rt
-    @dx = Math.cos(angle / 180.0 * Math::PI) * 16 # ‰¡ˆÚ“®—Ê
-    @dy = Math.sin(angle / 180.0 * Math::PI) * 16 # cˆÚ“®—Ê
-    @damage = 5     # “G‚É“–‚½‚Á‚½‚Æ‚«‚É—^‚¦‚éƒ_ƒ[ƒW
+    @dx = Math.cos(angle / 180.0 * Math::PI) * 16 # ï¿½ï¿½ï¿½Ú“ï¿½ï¿½ï¿½
+    @dy = Math.sin(angle / 180.0 * Math::PI) * 16 # ï¿½cï¿½Ú“ï¿½ï¿½ï¿½
+    @damage = 5     # ï¿½Gï¿½É“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½É—^ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½[ï¿½W
   end
 
-  # XV
+  # ï¿½Xï¿½V
   def update
-    # ƒVƒ‡ƒbƒgˆÚ“®
+    # ï¿½Vï¿½ï¿½ï¿½bï¿½gï¿½Ú“ï¿½
     self.x += @dx
     self.y += @dy
   end
 
-  # “G‚É“–‚½‚Á‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éƒƒ\ƒbƒh
+  # ï¿½Gï¿½É“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÉŒÄ‚Î‚ï¿½ï¿½éƒï¿½\ï¿½bï¿½h
   def shot(obj)
     self.vanish
   end
 end
 
-# ©‹@
+# ï¿½ï¿½ï¿½@
 class MyShip < Sprite
 
-  # ‰æ‘œ“Ç‚İ‚İ‚Æ‰e‰æ‘œ¶¬
+  # ï¿½æ‘œï¿½Ç‚İï¿½ï¿½İ‚Æ‰eï¿½æ‘œï¿½ï¿½ï¿½ï¿½
   @@image0 = Image.load_tiles("image/myship.png", 4, 1, true)
   @@image1 = @@image0.map {|image| image.flush([128, 0, 0, 0])}
 
-  # ƒVƒ‡ƒbƒg‰¹¶¬
+  # ï¿½Vï¿½ï¿½ï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   f = 4000
-  @@sound = SoundEffect.new(20, WAVE_TRI) do   # 20ms ‚ÌOŠp”g‚ğ¶¬‚·‚é
-    f = f - 120      # ü”g”‚Í 4000Hz ‚©‚ç 1ms ‚²‚Æ‚É 120Hz ‰º‚°‚é
-    [f, 15]          # [ ü”g”, ‰¹—Ê ] ‚Ì”z—ñ‚ğ•Ô‚·
+  @@sound = SoundEffect.new(20, WAVE_TRI) do   # 20ms ï¿½ÌOï¿½pï¿½gï¿½ğ¶ï¿½ï¿½ï¿½ï¿½ï¿½
+    f = f - 120      # ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ 4000Hz ï¿½ï¿½ï¿½ï¿½ 1ms ï¿½ï¿½ï¿½Æ‚ï¿½ 120Hz ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    [f, 15]          # [ ï¿½ï¿½ï¿½gï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ] ï¿½Ì”zï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½
   end
 
-  # ‰Šú‰»ˆ—
+  # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   def initialize
     super(200, 400)
     self.z = 15
-    self.collision = [4, 4, 27, 27]  # Õ“Ë”»’è
+    self.collision = [4, 4, 27, 27]  # ï¿½Õ“Ë”ï¿½ï¿½ï¿½
     self.target = $rt
-    @animecount = 0   # ƒAƒjƒ[ƒVƒ‡ƒ“—pƒJƒEƒ“ƒg
+    @animecount = 0   # ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½pï¿½Jï¿½Eï¿½ï¿½ï¿½g
 
   end
 
   def update
-    # ˆÚ“®
+    # ï¿½Ú“ï¿½
     dx = Input.x * 3
     dy = Input.y * 3
-    if Input.x != 0 and Input.y != 0   # ƒiƒiƒ‚Ì‚Í 0.7 ”{
+    if Input.x != 0 and Input.y != 0   # ï¿½iï¿½iï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ 0.7 ï¿½{
       dx *= 0.7
       dy *= 0.7
     end
     self.x += dx
     self.y += dy
 
-    # ‰æ–Ê’[‚Ì”»’è
+    # ï¿½ï¿½ï¿½Ê’[ï¿½Ì”ï¿½ï¿½ï¿½
     self.x = 0 if self.x < 0
     self.x = 448 - 32 if self.x > 448 - 32
     self.y = 0 if self.y < 0
     self.y = 480 - 32 if self.y > 480 - 32
 
-    # ƒVƒ‡ƒbƒg
+    # ï¿½Vï¿½ï¿½ï¿½bï¿½g
     if Input.pad_push?(P_BUTTON0)
       $my_shots << MyShot.new(self.x - 18, self.y - 32, 270)
       $my_shots << MyShot.new(self.x + 18, self.y - 32, 270)
@@ -512,86 +512,85 @@ class MyShip < Sprite
       @@sound.play
     end
 
-    # ƒAƒjƒ[ƒVƒ‡ƒ“—pƒJƒEƒ“ƒg
+    # ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½pï¿½Jï¿½Eï¿½ï¿½ï¿½g
     @animecount += 1
     @animecount -= 80 if @animecount >= 80
   end
 
-  # •`‰æ
+  # ï¿½`ï¿½ï¿½
   def draw
     self.image = @@image0[@animecount / 20]
     super
-    $rt.draw(self.x - 16, self.y - 16, @@image1[@animecount / 20], 1)  # ‰e
+    $rt.draw(self.x - 16, self.y - 16, @@image1[@animecount / 20], 1)  # ï¿½e
   end
 end
 
-# ª‚±‚±‚Ü‚Å‚ªƒNƒ‰ƒX’è‹`
+# ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚Å‚ï¿½ï¿½Nï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½`
 
-# «‚±‚±‚©‚ç‚ªƒQ[ƒ€‚ÌƒƒCƒ“ˆ—
+# ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç‚ªï¿½Qï¿½[ï¿½ï¿½ï¿½Ìƒï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-Window.caption = "‚é‚Ñ‚Ü—pƒTƒ“ƒvƒ‹ƒQ[ƒ€‚ÌDXRuby1.4”Å" # ƒEƒBƒ“ƒhƒE‚ÌƒLƒƒƒvƒVƒ‡ƒ“İ’è
-Window.width = 360        # ƒEƒBƒ“ƒhƒE‚Ì‰¡ƒTƒCƒYİ’è
-Window.height = 480       # ƒEƒBƒ“ƒhƒE‚ÌcƒTƒCƒYİ’è
-Input.set_repeat(0, 5)     # ƒL[‚ÌƒI[ƒgƒŠƒs[ƒgİ’èB5 ƒtƒŒ[ƒ€‚É 1 ‰ñ on
+Window.caption = "ï¿½ï¿½ï¿½Ñ‚Ü—pï¿½Tï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½DXRuby1.4ï¿½ï¿½" # ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ÌƒLï¿½ï¿½ï¿½vï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½İ’ï¿½
+Window.width = 360        # ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½Ì‰ï¿½ï¿½Tï¿½Cï¿½Yï¿½İ’ï¿½
+Window.height = 480       # ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½Ìcï¿½Tï¿½Cï¿½Yï¿½İ’ï¿½
+Input.set_repeat(0, 5)     # ï¿½Lï¿½[ï¿½ÌƒIï¿½[ï¿½gï¿½ï¿½ï¿½sï¿½[ï¿½gï¿½İ’ï¿½ï¿½B5 ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ on
 
-$etc_objects = []          # ƒIƒuƒWƒFƒNƒg”z—ñ
-$my_shots = []              # ’e
-$enemies = []              # “G
-$enemy_shots = []          # “G‚Ì’e
+$etc_objects = []          # ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½zï¿½ï¿½
+$my_shots = []              # ï¿½e
+$enemies = []              # ï¿½G
+$enemy_shots = []          # ï¿½Gï¿½Ì’e
 
 $rt = RenderTarget.new(448,480)
 screen_sprite = Sprite.new(0, 0)
 screen_sprite.collision = [0, 0, 448, 480]
 
-count = 0                 # “GoŒ»ˆ——pƒJƒEƒ“ƒg
-font = Font.new(32)       # ƒtƒHƒ“ƒg¶¬
+count = 0                 # ï¿½Gï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½pï¿½Jï¿½Eï¿½ï¿½ï¿½g
+font = Font.new(32)       # ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½
 
-$myship = MyShip.new      # ©‹@¶¬
-$etc_objects << $myship  # ©‹@‚ğƒIƒuƒWƒFƒNƒg”z—ñ‚É’Ç‰Á
-$etc_objects << Map.new  # ”wŒiƒIƒuƒWƒFƒNƒg¶¬•ƒIƒuƒWƒFƒNƒg”z—ñ‚É’Ç‰Á
+$myship = MyShip.new      # ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½ï¿½
+$etc_objects << $myship  # ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½zï¿½ï¿½ï¿½É’Ç‰ï¿½
+$etc_objects << Map.new  # ï¿½wï¿½iï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½zï¿½ï¿½ï¿½É’Ç‰ï¿½
 
-# ƒƒCƒ“ƒ‹[ƒv
+# ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½v
 Window.loop do
 
-  # “GoŒ»ˆ—
+  # ï¿½Gï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   count += 1
-  if count % 20 == 0      #  20 ƒJƒEƒ“ƒg‚É 1 ‰ñ
-    if count % 400 == 0   # 400 ƒJƒEƒ“ƒg‚É 1 ‰ñ
-      # “G 2 ‚ÌƒIƒuƒWƒFƒNƒg¶¬•ƒIƒuƒWƒFƒNƒg”z—ñ‚É’Ç‰Á
+  if count % 20 == 0      #  20 ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½ï¿½ 1 ï¿½ï¿½
+    if count % 400 == 0   # 400 ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½ï¿½ 1 ï¿½ï¿½
+      # ï¿½G 2 ï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½zï¿½ï¿½ï¿½É’Ç‰ï¿½
       $enemies << Enemy2.new(rand(240), -64)
       count = 0
     else
-      # “G 1 ‚ÌƒIƒuƒWƒFƒNƒg¶¬•ƒIƒuƒWƒFƒNƒg”z—ñ‚É’Ç‰Á
+      # ï¿½G 1 ï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½zï¿½ï¿½ï¿½É’Ç‰ï¿½
       $enemies << Enemy1.new(rand(320), -48)
     end
   end
 
-  # ƒIƒuƒWƒFƒNƒgî•ñXV
+  # ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½V
   Sprite.update([$etc_objects, $my_shots, $enemies, $enemy_shots])
 
-  # ‰æ–Ê‚©‚ço‚½‚â‚Â‚ğÁ‚·
+  # ï¿½ï¿½ï¿½Ê‚ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½
   $my_shots = screen_sprite.check($my_shots)
   $enemies = screen_sprite.check($enemies)
   $enemy_shots = screen_sprite.check($enemy_shots)
 
-  # Õ“Ë”»’è
-  Sprite.check($my_shots, $enemies)     # ©‹@ƒVƒ‡ƒbƒg‚Æ“G
-  Sprite.check($enemy_shots, $myship)   # “GƒVƒ‡ƒbƒg‚Æ©‹@
+  # ï¿½Õ“Ë”ï¿½ï¿½ï¿½
+  Sprite.check($my_shots, $enemies)     # ï¿½ï¿½ï¿½@ï¿½Vï¿½ï¿½ï¿½bï¿½gï¿½Æ“G
+  Sprite.check($enemy_shots, $myship)   # ï¿½Gï¿½Vï¿½ï¿½ï¿½bï¿½gï¿½Æï¿½ï¿½@
 
-  # Õ“Ë”»’è‚ÅÁ‚¦‚½ƒLƒƒƒ‰‚ğ”z—ñ‚©‚çíœ
+  # ï¿½Õ“Ë”ï¿½ï¿½ï¿½ï¿½Åï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½zï¿½ñ‚©‚ï¿½ï¿½íœ
   Sprite.clean([$etc_objects, $my_shots, $enemies, $enemy_shots])
 
-  # ƒIƒuƒWƒFƒNƒg‚ğ•`‰æ
+  # ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½`ï¿½ï¿½
   Sprite.draw([$etc_objects, $my_shots, $enemies, $enemy_shots])
 
   $rt.update
   Window.draw(-$myship.x/5,0,$rt)
 
-  # Esc ƒL[‚ÅI—¹
+  # Esc ï¿½Lï¿½[ï¿½ÅIï¿½ï¿½
   break if Input.key_push?(K_ESCAPE)
 
-  # Šeíî•ño—Í
+  # ï¿½eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½
   Window.draw_font(0, 0, Window.get_load.to_i.to_s + " %", font, :z => 100)
   Window.draw_font(0, 32, [$etc_objects, $my_shots, $enemies, $enemy_shots].flatten.size.to_s + " objects", font, :z => 100)
 end
-

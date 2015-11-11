@@ -1,10 +1,10 @@
 #coding:utf-8
-require "__dev/req" if $0 ==__FILE__
 require"dxruby"
-if $0 == __FILE__ # and (require "__dev/req")
-#  ARGV.replace [ *ARGV , [ 200 , 200 ] ]
+if $0 == __FILE__  \
+  and  (require "__dev/req")
+  ARGV.replace [ *ARGV , [ 200 , 200 ] ]
+  Dir.chdir File.dirname(File.expand_path(__FILE__))
 end
-
 
 x , y = ARGV.shift
 
@@ -29,7 +29,7 @@ Window.loop do | o , node_self |
 #    exit
 #    o.up.Flandoll << :object_user_shot0
     node_self.Flandoll << :object_user_shot0
-    ARGV.replace [ *ARGV , [ 350 , 300 , 3 , 0]  ]
+    ARGV.replace [ *ARGV , [ x , y , 3 , 0]  ]
   end
 
   if Input.key_push? K_Q

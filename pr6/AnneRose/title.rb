@@ -17,6 +17,8 @@ require "dxruby"
 # end
 # exit
 
+
+
 bar   =  Sprite.new(0, 460, Image.new(100,  20, C_WHITE))
 
 walls = [Sprite.new(  0, 0, Image.new( 20, 480, C_WHITE)),

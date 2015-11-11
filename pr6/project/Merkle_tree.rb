@@ -5,7 +5,7 @@ class Merkle_tree
   include Merkle_tree_m
   include Merkle_tree_m_ex
   include DEBUG_CODE_m
-  attr_accessor :Flandoll , :Scarlet  , :fib
+  attr_accessor :Flandoll , :Scarlet
   def initialize **_
     super
     @Flandoll = nil # []
