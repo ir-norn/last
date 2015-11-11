@@ -1,3 +1,6 @@
+require 'fiber'
+
+
 
 
 #require_relative "./chino_to_enum"
@@ -11,9 +14,24 @@ module Count_lib_v2_m
     rewind
   end
   def fiber_yield      # ovar lide
+
+    @fib2 = Fiber.new do | v |
+      @fib = Fiber.new do
+          Fiber.yield v while true
+      end ; @fib.resume
+    end
+
     @fib = Fiber.new do
       fiber_yield_sub
       Fiber.yield limit while true
+    end
+    @fib = Fiber.new do
+      enum.each_with_index do | m , i |
+        @count = i
+        Fiber.yield m
+      end
+      @fib2.transfer limit
+      #  @fib2.resume
     end # f
   end
   def fiber_yield_sub
@@ -55,15 +73,16 @@ end
 class Count_lib_v2_rev
   include Count_lib_v2_m
   undef_method  :prev  # muzui mi ji ssou
+  def initialize *_
+    super
+    @enum = @enum.to_a + @enum.to_a.reverse[1...-1]
+  end
   def fiber_yield
     @fib = Fiber.new do | x |
-      fiber_yield_sub
-      limit.-(1).step(start+1,-add).each.with_index @count do | m , i |
+      enum.cycle.each_with_index do | m , i |
         @count = i
         Fiber.yield m
       end
-      rewind
-      @fib.resume
     end # f
   end # d
 end
@@ -72,25 +91,35 @@ class Count_lib_v2_cycle
   undef_method  :prev  # muzui mi ji ssou
   def fiber_yield
     @fib = Fiber.new do | x |
-      fiber_yield_sub
+      enum.cycle.each_with_index do | m , i |
+        @count = i
+        Fiber.yield m
+      end
+      exit
+      enum.each_with_index do | m , i |
+        @count = i
+        Fiber.yield m
+      end
       rewind
       @fib.resume
     end # f
   end # d
 end
 
-__END__
+
 
 
 
 
 ch = Count_lib_v2.new( start: 0 , limit: 3 , add: 1 )
 p "-Count_lib_v2-"
-print"next:"; 5.times { print ch.next , " " } ; puts
-print"prev:"; 5.times { print ch.prev , " " } ; puts
+print"next:"; 8.times { print ch.next , " " } ; puts
+print"prev:"; 8.times { print ch.prev , " " } ; puts
 ch.rewind
-print"next:"; 5.times { print ch.next , " " } ; puts
-print"peek:"; 5.times { print ch.peek , " " } ; puts
+print"next:"; 8.times { print ch.next , " " } ; puts
+print"peek:"; 8.times { print ch.peek , " " } ; puts
+
+
 
 ch = Count_lib_v2_rev.new( start: 0 , limit: 3 , add: 1 )
 p "-Count_lib_v2_rev-"
