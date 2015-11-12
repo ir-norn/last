@@ -47,7 +47,3 @@ Window.loop do
   shader.start_angle = x
   Window.draw_ex(100, 100, image, shader:shader)
 end
-
-
-
-

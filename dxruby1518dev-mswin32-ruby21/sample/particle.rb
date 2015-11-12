@@ -42,7 +42,7 @@ class StandardParticle < Sprite
     if @lifetime
       @lifetime -= 1
       if @lifetime == 0
-        self.vanish 
+        self.vanish
         return
       end
     end
@@ -217,4 +217,3 @@ Window.loop do
   Window.draw_font(0,0,ParticleFactory.count.to_s, font)
   Window.draw_font(0,32,Window.fps.to_s, font)
 end
-
