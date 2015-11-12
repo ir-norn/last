@@ -4,38 +4,8 @@ require "dxruby"
 Dir.chdir File.dirname(File.expand_path(__FILE__))
 Window.width  = 800
 Window.height = 600
-GLOBAL        = Object.new.extend Module.new{attr_accessor :TASK, :SCENE , :IMAGE , :SOUND , :SCREEN_PADDING , :WINDOW_SYSTEM}
-GLOBAL.WINDOW_SYSTEM         = Object.new.extend Module.new { attr_accessor :x ,:y,:width,:height , :RENDER , :RENDER_MAIN , :RENDER_LEFT, :RENDER_TOP , :RENDER_BOTTOM ,:RENDER_RIGHT , :TASK }
-GLOBAL.WINDOW_SYSTEM.x       = 60
-GLOBAL.WINDOW_SYSTEM.y       = 60
-GLOBAL.WINDOW_SYSTEM.width   = 600  # Window.width
-GLOBAL.WINDOW_SYSTEM.height  = 400  # Window.height
-GLOBAL.WINDOW_SYSTEM.RENDER  = RenderTarget.new GLOBAL.WINDOW_SYSTEM.width , GLOBAL.WINDOW_SYSTEM.height
-GLOBAL.SCREEN_PADDING        = Object.new.extend Module.new { attr_accessor :left ,:top,:bottom,:right }
-GLOBAL.SCREEN_PADDING.left   = 110
-GLOBAL.SCREEN_PADDING.top    = 110
-GLOBAL.SCREEN_PADDING.bottom = 110
-GLOBAL.SCREEN_PADDING.right  = 240
-GLOBAL.WINDOW_SYSTEM.RENDER_MAIN   = RenderTarget.new GLOBAL.WINDOW_SYSTEM.width - (GLOBAL.SCREEN_PADDING.left + GLOBAL.SCREEN_PADDING.right)  ,  GLOBAL.WINDOW_SYSTEM.height - (GLOBAL.SCREEN_PADDING.bottom + GLOBAL.SCREEN_PADDING.top)
-GLOBAL.WINDOW_SYSTEM.RENDER_LEFT   = RenderTarget.new GLOBAL.SCREEN_PADDING.left                                                               ,  GLOBAL.WINDOW_SYSTEM.height
-GLOBAL.WINDOW_SYSTEM.RENDER_TOP    = RenderTarget.new GLOBAL.WINDOW_SYSTEM.width                                                               ,  GLOBAL.SCREEN_PADDING.top
-GLOBAL.WINDOW_SYSTEM.RENDER_BOTTOM = RenderTarget.new GLOBAL.WINDOW_SYSTEM.width                                                               ,  GLOBAL.SCREEN_PADDING.bottom
-GLOBAL.WINDOW_SYSTEM.RENDER_RIGHT  = RenderTarget.new GLOBAL.SCREEN_PADDING.right                                                              ,  GLOBAL.WINDOW_SYSTEM.height
-GLOBAL.IMAGE                       = Object.new.extend Module.new{attr_accessor :user, :user_shot , :enemy , :enemy_shot , :background , :padding_left   ,  :padding_top    ,  :padding_bottom ,  :padding_right }
-GLOBAL.IMAGE.padding_left    = Image.new( GLOBAL.SCREEN_PADDING.left              , GLOBAL.WINDOW_SYSTEM.height   , [115,155,125] )
-GLOBAL.IMAGE.padding_top     = Image.new( GLOBAL.WINDOW_SYSTEM.RENDER_MAIN.width  , GLOBAL.SCREEN_PADDING.top     , [195,115,115] )
-GLOBAL.IMAGE.padding_bottom  = Image.new( GLOBAL.WINDOW_SYSTEM.RENDER_MAIN.width  , GLOBAL.SCREEN_PADDING.bottom  , [155,215,255] )
-GLOBAL.IMAGE.padding_right   = Image.new( GLOBAL.SCREEN_PADDING.right             , GLOBAL.WINDOW_SYSTEM.height   , [123, 94,125] )
-GLOBAL.WINDOW_SYSTEM.TASK              = Object.new.extend Module.new{attr_accessor :padding }
-GLOBAL.WINDOW_SYSTEM.TASK.padding        = []
-GLOBAL.WINDOW_SYSTEM.TASK.padding.push Sprite.new 0                                                                     , 0                                                                   , GLOBAL.IMAGE.padding_left
-GLOBAL.WINDOW_SYSTEM.TASK.padding.push Sprite.new GLOBAL.SCREEN_PADDING.left                                            , 0                                                                   , GLOBAL.IMAGE.padding_top
-GLOBAL.WINDOW_SYSTEM.TASK.padding.push Sprite.new GLOBAL.SCREEN_PADDING.left                                            , GLOBAL.SCREEN_PADDING.top + GLOBAL.WINDOW_SYSTEM.RENDER_MAIN.height , GLOBAL.IMAGE.padding_bottom
-GLOBAL.WINDOW_SYSTEM.TASK.padding.push Sprite.new GLOBAL.SCREEN_PADDING.left + GLOBAL.WINDOW_SYSTEM.RENDER_MAIN.width   , 0                                                                   , GLOBAL.IMAGE.padding_right
-GLOBAL.WINDOW_SYSTEM.TASK.padding.each do|v| v.target = GLOBAL.WINDOW_SYSTEM.RENDER end
-
-GLOBAL.TASK                    = Object.new.extend Module.new{attr_accessor :scene , :screen_collision , :user,:user_shot,:enemy,:enemy_shot }
-GLOBAL.TASK.screen_collision   = Sprite.new GLOBAL.SCREEN_PADDING.left - (collision_padding = 100) , GLOBAL.SCREEN_PADDING.top - collision_padding , Image.new((GLOBAL.WINDOW_SYSTEM.width - GLOBAL.SCREEN_PADDING.right)+collision_padding , (GLOBAL.WINDOW_SYSTEM.height - (GLOBAL.SCREEN_PADDING.bottom + GLOBAL.SCREEN_PADDING.top))+collision_padding , [255,255,255])
+GLOBAL        = Object.new.extend Module.new{attr_accessor :TASK, :SCENE , :IMAGE , :SOUND }
+GLOBAL.TASK   = Object.new.extend Module.new{attr_accessor :scene , :screen_collision , :user,:user_shot,:enemy,:enemy_shot }
 GLOBAL.TASK.scene       = []
 GLOBAL.TASK.user        = []
 GLOBAL.TASK.user_shot   = []
@@ -49,6 +19,7 @@ GLOBAL.SOUND.SE                    = Object.new.extend Module.new{attr_accessor 
 GLOBAL.SOUND.SE.USER_SHOT_CREATE   = Sound.new "./sound/nil.wav"
 GLOBAL.SOUND.SE.USER_SHOT_SHOT     = Sound.new "./sound/nil.wav"
 GLOBAL.SOUND.SE.ENEMY_HIT          = Sound.new "./sound/nil.wav"
+GLOBAL.IMAGE  = Object.new.extend Module.new{attr_accessor :user, :user_shot , :enemy , :enemy_shot , :background , :padding_left   ,  :padding_top    ,  :padding_bottom ,  :padding_right }
 GLOBAL.IMAGE.background      = nil
 GLOBAL.IMAGE.user            = Image.new(40,40,[100,100,200])
 GLOBAL.IMAGE.user_shot       = Image.new(20,20,[200,100,200])
@@ -56,12 +27,58 @@ GLOBAL.IMAGE.enemy           = Image.new(15,10,[140,100,100])
 GLOBAL.IMAGE.enemy_shot      = nil
 #GLOBAL.TASK.scene.last.visible = false
 
+class Window_system_class
+  def initialize x: , y: , width: , height: , render: , layout: nil
+    @render           = render
+    @window           = Object.new.extend Module.new{attr_accessor :x ,:y,:width,:height , :RENDER }
+    @window.x         = x
+    @window.y         = y
+    @window.width     = width  # Window.width
+    @window.height    = height  # Window.height
+    @window.RENDER    = RenderTarget.new @window.width , @window.height
+    @task             = Object.new.extend Module.new{attr_accessor :main }
+    @task.main        = []
+    @task.main.push Sprite.new 0, 0, Image.new( @window.width , @window.height , [235,235,155] )
+    set_layout layout
+    @task.main.each do|v| v.target = @window.RENDER end
+  end
+  def render
+    @window.RENDER
+  end
+  def layout_draw
+    Sprite.draw @task.main
+  end
+  def update
+    @window.RENDER.update
+  end
+  def draw
+    @render.draw @window.x , @window.y , @window.RENDER
+  end
+  attr_reader :padding
+  def set_layout layout
+    case layout
+    when :default
+    @padding        = Object.new.extend Module.new { attr_accessor :left ,:top,:bottom,:right }
+    padding.left   = 20
+    padding.top    = 30
+    padding.bottom = 20
+    padding.right  = 200
+    @task.main.push Sprite.new padding.left                                                   , padding.top                                                    , Image.new( @window.width - (padding.left + padding.right) , @window.height - (padding.bottom + padding.top)   , [205,225,225] )
+    @task.main.push Sprite.new 0                                                              , 0                                                              , Image.new( padding.left                                   , @window.height                                    , [115,155,125] )
+    @task.main.push Sprite.new padding.left                                                   , 0                                                              , Image.new(@window.width - (padding.left + padding.right)  , padding.top                                       , [195,115,115] )
+    @task.main.push Sprite.new padding.left                                                   , padding.top +  @window.height - (padding.bottom + padding.top) , Image.new( @window.width - (padding.left + padding.right) , padding.bottom                                    , [155,215,255] )
+    @task.main.push Sprite.new padding.left +  @window.width - (padding.left + padding.right) , 0                                                              , Image.new( padding.right                                  , @window.height                                    , [123, 94,125] )
+
+    end # case
+  end
+end
+
 module Game_object ; attr_accessor :speed , :sym    end
 class Game_object_main < Sprite
   include Game_object
   def initialize *_
     super
-    self.target = GLOBAL.WINDOW_SYSTEM.RENDER_MAIN
+    self.target = WIN.render
   end
 end
 class User < Game_object_main
@@ -72,8 +89,8 @@ class User < Game_object_main
     self.collision = [ 0 , 0 , ]
   end
   def update
-    add = Input.x * @speed ; self.x += add if (self.x + add > 0) and (self.x + add + self.image.width  < GLOBAL.WINDOW_SYSTEM.RENDER_MAIN.width  )
-    add = Input.y * @speed ; self.y += add if (self.y + add > 0) and (self.y + add + self.image.height < GLOBAL.WINDOW_SYSTEM.RENDER_MAIN.height )
+    add = Input.x * @speed ; self.x += add if   (self.x + add > 0) and (self.x + add + self.image.width  < WIN.render.width  )
+    add = Input.y * @speed ; self.y += add if   (self.y + add > 0) and (self.y + add + self.image.height < WIN.render.height )
     Input.set_repeat(0, 5)
     if Input.key_push? K_Z
       img = GLOBAL.IMAGE.user_shot
@@ -99,7 +116,6 @@ class User_shot < Game_object_main
     GLOBAL.SOUND.SE.USER_SHOT_SHOT.play
   end
 end
-
 class Enemy < Game_object_main
   def initialize x , y , image , sym = :user_enemy0
     super x , y , image
@@ -114,8 +130,7 @@ class Enemy < Game_object_main
     GLOBAL.SOUND.SE.ENEMY_HIT.play
   end
 end
-class Enemy_shot < Game_object_main
-end
+class Enemy_shot < Game_object_main ; end
 class Effect ; end
 class Scene_progression
   def initialize
@@ -123,8 +138,7 @@ class Scene_progression
     init
   end
   def init
-    GLOBAL.TASK.user << User.new( 180, 300 , GLOBAL.IMAGE.user)
-#    GLOBAL.SOUND.BGM.play
+    GLOBAL.TASK.user << User.new( 180, 300 , GLOBAL.IMAGE.user) # GLOBAL.SOUND.BGM.play
   end
   def update
     case @count.next
@@ -184,91 +198,42 @@ class Background < Game_object_main
   def update
     @shader.start = @shader_cycle.next
     @shader_rt.draw(@pixel, 0, @image).update
-    GLOBAL.WINDOW_SYSTEM.RENDER_MAIN.draw_shader(0, 0, @shader_rt, @shader, -100)
+    WIN.render.draw_shader(0, 0, @shader_rt, @shader, -100)
   end
 end
 
 
-class Window_system_class
-  def initialize x: , y: , width: , height: , render: , padding:
-    @my_GLOBAL        = Object.new.extend Module.new{attr_accessor :TASK, :SCENE , :IMAGE , :SOUND , :SCREEN_PADDING , :WINDOW_SYSTEM}
-    @my_GLOBAL.WINDOW_SYSTEM         = Object.new.extend Module.new { attr_accessor :x ,:y,:width,:height , :RENDER , :RENDER_MAIN , :RENDER_LEFT, :RENDER_TOP , :RENDER_BOTTOM ,:RENDER_RIGHT , :TASK }
-    @my_GLOBAL.WINDOW_SYSTEM.x       = x
-    @my_GLOBAL.WINDOW_SYSTEM.y       = y
-    @my_GLOBAL.WINDOW_SYSTEM.width   = width  # Window.width
-    @my_GLOBAL.WINDOW_SYSTEM.height  = height  # Window.height
-    @my_GLOBAL.WINDOW_SYSTEM.RENDER  = RenderTarget.new @my_GLOBAL.WINDOW_SYSTEM.width , @my_GLOBAL.WINDOW_SYSTEM.height
-    @my_GLOBAL.SCREEN_PADDING        = Object.new.extend Module.new { attr_accessor :left ,:top,:bottom,:right }
-    @my_GLOBAL.SCREEN_PADDING.left   = 10
-    @my_GLOBAL.SCREEN_PADDING.top    = 10
-    @my_GLOBAL.SCREEN_PADDING.bottom = 10
-    @my_GLOBAL.SCREEN_PADDING.right  = 10
-    @my_GLOBAL.WINDOW_SYSTEM.RENDER_MAIN   = RenderTarget.new @my_GLOBAL.WINDOW_SYSTEM.width - (@my_GLOBAL.SCREEN_PADDING.left + @my_GLOBAL.SCREEN_PADDING.right)  ,  @my_GLOBAL.WINDOW_SYSTEM.height - (@my_GLOBAL.SCREEN_PADDING.bottom + @my_GLOBAL.SCREEN_PADDING.top)
-    @my_GLOBAL.WINDOW_SYSTEM.RENDER_LEFT   = RenderTarget.new @my_GLOBAL.SCREEN_PADDING.left                                                               ,  @my_GLOBAL.WINDOW_SYSTEM.height
-    @my_GLOBAL.WINDOW_SYSTEM.RENDER_TOP    = RenderTarget.new @my_GLOBAL.WINDOW_SYSTEM.width                                                               ,  @my_GLOBAL.SCREEN_PADDING.top
-    @my_GLOBAL.WINDOW_SYSTEM.RENDER_BOTTOM = RenderTarget.new @my_GLOBAL.WINDOW_SYSTEM.width                                                               ,  @my_GLOBAL.SCREEN_PADDING.bottom
-    @my_GLOBAL.WINDOW_SYSTEM.RENDER_RIGHT  = RenderTarget.new @my_GLOBAL.SCREEN_PADDING.right                                                              ,  @my_GLOBAL.WINDOW_SYSTEM.height
-    @my_GLOBAL.IMAGE                       = Object.new.extend Module.new{attr_accessor :padding_left   ,  :padding_top    ,  :padding_bottom ,  :padding_right }
-    @my_GLOBAL.IMAGE.padding_left    = Image.new( @my_GLOBAL.SCREEN_PADDING.left              , @my_GLOBAL.WINDOW_SYSTEM.height   , [115,155,125] )
-    @my_GLOBAL.IMAGE.padding_top     = Image.new( @my_GLOBAL.WINDOW_SYSTEM.RENDER_MAIN.width  , @my_GLOBAL.SCREEN_PADDING.top     , [195,115,115] )
-    @my_GLOBAL.IMAGE.padding_bottom  = Image.new( @my_GLOBAL.WINDOW_SYSTEM.RENDER_MAIN.width  , @my_GLOBAL.SCREEN_PADDING.bottom  , [155,215,255] )
-    @my_GLOBAL.IMAGE.padding_right   = Image.new( @my_GLOBAL.SCREEN_PADDING.right             , @my_GLOBAL.WINDOW_SYSTEM.height   , [123, 94,125] )
-    @my_GLOBAL.WINDOW_SYSTEM.TASK              = Object.new.extend Module.new{attr_accessor :padding }
-    @my_GLOBAL.WINDOW_SYSTEM.TASK.padding        = []
-    @my_GLOBAL.WINDOW_SYSTEM.TASK.padding.push Sprite.new 0                                                                     , 0                                                                   , @my_GLOBAL.IMAGE.padding_left
-    @my_GLOBAL.WINDOW_SYSTEM.TASK.padding.push Sprite.new @my_GLOBAL.SCREEN_PADDING.left                                            , 0                                                                   , @my_GLOBAL.IMAGE.padding_top
-    @my_GLOBAL.WINDOW_SYSTEM.TASK.padding.push Sprite.new @my_GLOBAL.SCREEN_PADDING.left                                            , @my_GLOBAL.SCREEN_PADDING.top + @my_GLOBAL.WINDOW_SYSTEM.RENDER_MAIN.height , @my_GLOBAL.IMAGE.padding_bottom
-    @my_GLOBAL.WINDOW_SYSTEM.TASK.padding.push Sprite.new @my_GLOBAL.SCREEN_PADDING.left + @my_GLOBAL.WINDOW_SYSTEM.RENDER_MAIN.width   , 0                                                                   , @my_GLOBAL.IMAGE.padding_right
-    @my_GLOBAL.WINDOW_SYSTEM.TASK.padding.each do|v| v.target = @my_GLOBAL.WINDOW_SYSTEM.RENDER end
-  end
-  def update
-    @my_GLOBAL.WINDOW_SYSTEM.RENDER_MAIN.update
-    @my_GLOBAL.WINDOW_SYSTEM.RENDER_RIGHT.update
-    @my_GLOBAL.WINDOW_SYSTEM.RENDER.draw @my_GLOBAL.SCREEN_PADDING.left , @my_GLOBAL.SCREEN_PADDING.top , @my_GLOBAL.WINDOW_SYSTEM.RENDER_MAIN
-    @my_GLOBAL.WINDOW_SYSTEM.RENDER.draw @my_GLOBAL.SCREEN_PADDING.left + @my_GLOBAL.WINDOW_SYSTEM.RENDER_MAIN.width , @my_GLOBAL.SCREEN_PADDING.top , @my_GLOBAL.WINDOW_SYSTEM.RENDER_RIGHT
-    @my_GLOBAL.WINDOW_SYSTEM.RENDER.update
-    Sprite.draw @my_GLOBAL.WINDOW_SYSTEM.TASK.padding
-    Window.draw @my_GLOBAL.WINDOW_SYSTEM.x , @my_GLOBAL.WINDOW_SYSTEM.y , @my_GLOBAL.WINDOW_SYSTEM.RENDER
-    Window.draw_font 10,  0,"xxxxxx",Font.default
-  end
-end
+WIN = Window_system_class.new( x: 10 , y: 10 , width: 600, height: 400 , render: Window , layout: :default )
+
+GLOBAL.TASK.screen_collision   = Sprite.new WIN.padding.left - (collision_padding = 100) , WIN.padding.top - collision_padding ,
+   Image.new((WIN.render.width - WIN.padding.right) + collision_padding ,
+   (WIN.render.height - (WIN.padding.bottom + WIN.padding.top)) + collision_padding , [255,255,255])
+
+p GLOBAL.TASK.screen_collision.y
 
 TASK = GLOBAL.TASK
 GLOBAL.TASK.scene << Background.new
 GLOBAL.TASK.scene << Scene_progression.new
 # GLOBAL.TASK.scene << Window_system_class.new( 10 , 10 , 100 , 200 )
-x = Window_system_class.new( x: 10 , y: 10 , width: 100, height:200 , render: nil )
+
 
 Window.loop do ; exit if Input.keyPush? K_F9 ; exit if Input.keyPush? K_ESCAPE ; Window.screenshot if Input.keyPush? K_F12
-  x.update
-  Sprite.draw GLOBAL.WINDOW_SYSTEM.TASK.padding
+  WIN.update
+  WIN.layout_draw
+
+#  Sprite.draw GLOBAL.WINDOW_SYSTEM.TASK.padding
   Sprite.draw   [ TASK.scene , TASK.user , TASK.user_shot , TASK.enemy ]
   Sprite.update [ TASK.scene , TASK.user , TASK.user_shot , TASK.enemy ]
 #  Sprite.check  TASK.user , [ TASK.enemy , TASK.enemy_shot ]
-  Sprite.check  TASK.user_shot , TASK.enemy
-  Sprite.clean [ TASK.user , TASK.user_shot , TASK.enemy ]
+  Sprite.check   TASK.user_shot , TASK.enemy
+  Sprite.clean [ TASK.user , TASK.user_shot ,  TASK.enemy ]
   TASK.user_shot = TASK.screen_collision.check TASK.user_shot
   TASK.enemy     = TASK.screen_collision.check TASK.enemy
 
-  GLOBAL.WINDOW_SYSTEM.RENDER_RIGHT.draw_font 10,  0,"user:#{TASK.user.size}",Font.default
-  GLOBAL.WINDOW_SYSTEM.RENDER_RIGHT.draw_font 10, 20,"user_shot:#{TASK.user_shot.size}",Font.default
-  GLOBAL.WINDOW_SYSTEM.RENDER_RIGHT.draw_font 10, 40,"enemy:#{TASK.enemy.size}",Font.default
-  GLOBAL.WINDOW_SYSTEM.RENDER_RIGHT.draw_font 10, 60,"enemy_shot:#{TASK.enemy_shot.size}",Font.default
-  Window.draw_font GLOBAL.WINDOW_SYSTEM.width-60, GLOBAL.WINDOW_SYSTEM.height-30,"fps#{Window.fps}",Font.default
+  WIN.render.draw_font 10,  0,"uxxxxser:#{TASK.user.size}",Font.default
+  WIN.render.draw_font 10, 20,"user_shot:#{TASK.user_shot.size}",Font.default
+  WIN.render.draw_font 10, 40,"enemy:#{TASK.enemy.size}",Font.default
+  WIN.render.draw_font 10, 60,"enemy_shot:#{TASK.enemy_shot.size}",Font.default
+  WIN.draw
 
-  GLOBAL.WINDOW_SYSTEM.RENDER_MAIN.update
-  GLOBAL.WINDOW_SYSTEM.RENDER_RIGHT.update
-  GLOBAL.WINDOW_SYSTEM.RENDER_BOTTOM.update
-  GLOBAL.WINDOW_SYSTEM.RENDER_LEFT.update
-
-  GLOBAL.WINDOW_SYSTEM.RENDER.draw 0                                                                   , 0                                                                    , GLOBAL.WINDOW_SYSTEM.RENDER_LEFT
-  GLOBAL.WINDOW_SYSTEM.RENDER.draw GLOBAL.SCREEN_PADDING.left                                          , 0                                                                    , GLOBAL.WINDOW_SYSTEM.RENDER_TOP
-  GLOBAL.WINDOW_SYSTEM.RENDER.draw GLOBAL.SCREEN_PADDING.left + GLOBAL.WINDOW_SYSTEM.RENDER_MAIN.width , 0                                                                    , GLOBAL.WINDOW_SYSTEM.RENDER_RIGHT
-  GLOBAL.WINDOW_SYSTEM.RENDER.draw GLOBAL.SCREEN_PADDING.left                                          , GLOBAL.SCREEN_PADDING.top + GLOBAL.WINDOW_SYSTEM.RENDER_MAIN.height  , GLOBAL.WINDOW_SYSTEM.RENDER_BOTTOM
-  GLOBAL.WINDOW_SYSTEM.RENDER.draw GLOBAL.SCREEN_PADDING.left                                          , GLOBAL.SCREEN_PADDING.top                                            , GLOBAL.WINDOW_SYSTEM.RENDER_MAIN
-  GLOBAL.WINDOW_SYSTEM.RENDER.update
-  Window.draw GLOBAL.WINDOW_SYSTEM.x , GLOBAL.WINDOW_SYSTEM.y , GLOBAL.WINDOW_SYSTEM.RENDER
-  # Window.draw GLOBAL.SCREEN_PADDING.left , GLOBAL.SCREEN_PADDING.top , GLOBAL.WINDOW_SYSTEM.RENDER_MAIN
-#  Window.draw GLOBAL.SCREEN_PADDING.left + GLOBAL.WINDOW_SYSTEM.RENDER_MAIN.width , GLOBAL.SCREEN_PADDING.top , GLOBAL.RENDER_RIGHT
-#  Window.draw GLOBAL.WINDOW_SYSTEM.x , GLOBAL.WINDOW_SYSTEM.y , GLOBAL.WINDOW_SYSTEM.RENDER
 end
