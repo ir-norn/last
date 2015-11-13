@@ -2,14 +2,15 @@
 require "Benchmark"
 
 a=->{
-  str = "xxx"
-  "_#{str}_"
+  str = "xxxxxx"
+  #str.dup
+}
+b=->{
+  str = "xxxxxx"
+  #str.clone
 }
 B = 30
 e = 0
-b=->{
-  e = (e+1)%B
-}
 q=(Array 0..B).cycle
 c=->{
   q.next
